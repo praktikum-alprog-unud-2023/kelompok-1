@@ -89,7 +89,7 @@ git push
 Untuk mendapatkan perubahan terbaru dari repository remote, gunakan:
 
 ```shell
-git push fetch
+git fetch
 ```
 
 Untuk mengambil perubahan terbaru dan menggabungkannya dengan cabang lokal saat ini, gunakan:
@@ -101,6 +101,24 @@ git pull
 ## Branching <a name="branching"></a>
 
 Branching memungkinkan Anda untuk bekerja pada fitur atau perbaikan bug dalam cabang terpisah tanpa memengaruhi cabang utama (biasanya disebut "master").
+
+Untuk membuat cabang baru gunakan perintah berikut:
+
+```shell
+git branch <nama cabang>
+```
+
+Untuk pindah cabang gunakan perintah berikut:
+
+```shell
+git checkout <nama cabang>
+```
+
+Untuk melihat semua cabang yang ada gunakan perintah berikut:
+
+```shell
+git branch
+```
 
 ## Menggabungkan Perubahan (Merge) <a name="menggabungkan-perubahan-merge"></a>
 
