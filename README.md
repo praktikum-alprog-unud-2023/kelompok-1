@@ -8,23 +8,24 @@ Git adalah sistem kontrol versi yang sangat populer yang digunakan untuk mengelo
 
 1. [Apa itu Git dan GitHub?](#apa-itu-git-dan-github)
 2. [Instalasi Git](#instalasi-git)
-3. [Mengelola Repository Git](#mengelola-repository-git)
+3. [Git Config](#git-config)
+4. [Mengelola Repository Git](#mengelola-repository-git)
    - Clone Repository
    - Menambahkan Perubahan (Git Add)
    - Membuat Commit (Git Commit)
    - Melihat Status (Git Status)
    - Mengirim Perubahan (Git Push)
    - Mendapatkan Perubahan Terbaru (Git Fetch dan Git Pull)
-4. [Branching](#branching)
-5. [Menggabungkan Perubahan (Merge)](#menggabungkan-perubahan-merge)
-6. [Bekerja dengan Remote Repository](#bekerja-dengan-remote-repository)
-7. [Mengatasi Konflik](#mengatasi-konflik)
-8. [Menggunakan GitHub](#menggunakan-github)
+5. [Branching](#branching)
+6. [Menggabungkan Perubahan (Merge)](#menggabungkan-perubahan-merge)
+7. [Bekerja dengan Remote Repository](#bekerja-dengan-remote-repository)
+8. [Mengatasi Konflik](#mengatasi-konflik)
+9. [Menggunakan GitHub](#menggunakan-github)
    - Membuat Repository di GitHub
    - Push ke Repository di GitHub
    - Mengirim Pull Request
    - Menggabungkan Pull Request
-9. [Catatan Penting](#catatan-penting)
+10. [Catatan Penting](#catatan-penting)
 
 ## Apa itu Git dan GitHub? <a name="apa-itu-git-dan-github"></a>
 
@@ -35,6 +36,48 @@ Git adalah sistem kontrol versi yang sangat populer yang digunakan untuk mengelo
 ## Instalasi Git <a name="instalasi-git"></a>
 
 Anda dapat mengunduh dan menginstal Git dari situs web resmi [Git](https://git-scm.com/downloads) sesuai dengan sistem operasi yang Anda gunakan.
+
+## Git Config <a name="git-config"></a>
+
+### Konfigurasi Awal
+
+Setelah menginstal Git, langkah pertama yang perlu Anda lakukan adalah mengatur nama dan alamat email Anda. Ini akan menjadi identitas Anda dalam riwayat commit.
+
+### Konfigurasi Nama dan Email
+
+```shell
+git config --global user.name "Nama Anda"
+git config --global user.email "email@contoh.com"
+```
+
+Pastikan Anda menggantinya dengan nama Anda dan alamat email yang sesuai. Opsi --global mengindikasikan bahwa Anda ingin mengatur ini sebagai konfigurasi global (untuk seluruh repository pada komputer Anda). Jika Anda ingin mengatur nama dan email secara lokal untuk repository tertentu, lakukan hal yang sama tanpa opsi --global.
+
+### Mengatur Editor Default
+
+Git membutuhkan editor teks untuk pesan commit. Jika Anda tidak mengatur editor default, Git akan menggunakan editor yang telah ditentukan dalam sistem Anda.
+
+Jika menggunakan VS Code gunakan perintah berikut:
+
+```shell
+git config --global core.editor "code --wait"
+```
+
+### Melihat Konfigurasi
+
+Anda dapat melihat semua konfigurasi Git dengan perintah:
+Ini akan mencantumkan semua pengaturan Git yang telah Anda tentukan, baik di tingkat global maupun lokal.
+
+```shell
+git config --list
+```
+
+### Menghapus Konfigurasi
+
+Untuk menghapus pengaturan tertentu, Anda dapat menggunakan perintah git config --unset. Misalnya, jika Anda ingin menghapus alamat email global yang telah diatur sebelumnya, gunakan:
+
+```shell
+git config --global --unset user.email
+```
 
 ## Mengelola Repository Git <a name="mengelola-repository-git"></a>
 
