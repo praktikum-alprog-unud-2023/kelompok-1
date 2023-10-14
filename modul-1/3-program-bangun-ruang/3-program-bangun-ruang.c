@@ -320,13 +320,14 @@ void endMsg() // prosedur menampilkan status
   inputThisInt("Masukkan perintah : ", &pilihan);
   do
   {
-    if (pilihan = 1)
+    if (pilihan == 1)
     {
       menuUtama();
     }
-    else if (pilihan = 2)
+    else if (pilihan == 2)
     {
       exit(0);
+      break;
     }
 
     statusMsg("ERROR: PERINTAH YANG ANDA PILIH TIDAK DITEMUKAN");
@@ -352,7 +353,6 @@ void menuUtama()
     outMsg("< %d >  %s", i + 1, daftarBangunRuang[i]);
   }
   outMsg("< 0 >  keluar                    \0");
-  outMsg("1");
   outLine();
 
   inputThisInt("masukkan pilihanmu: ", &pilihan);
@@ -376,8 +376,6 @@ void menuUtama()
     break;
 
   case 0:
-
-    endMsg();
     break;
 
   default:
@@ -394,6 +392,9 @@ void menuTabung()
 {
   double diameter, tinggi;
   head();
+  outLine();
+  outMsg("Bangun Ruang Tabung");
+  outLine();
   outMsg("Masukkan diameter alas");
   outLine();
   inputThisDouble("diameter = ", &diameter);
@@ -411,12 +412,15 @@ void menuTabung()
   outMsg("volume = %lf", tabungVolume(diameter / 2, tinggi));
   outMsg("luas permukaan = %lf", tabungLuasPermukaan(diameter / 2, tinggi));
   outLine();
-  pauseMsg();
+  endMsg();
 }
 void menuBola()
 {
   double diameter, tinggi;
   head();
+  outLine();
+  outMsg("Bangun Ruang Bola");
+  outLine();
   outMsg("Masukkan diameter bola");
   outLine();
   inputThisDouble("diameter = ", &diameter);
@@ -427,12 +431,15 @@ void menuBola()
   outMsg("volume = %lf", bolaVolume(diameter / 2));
   outMsg("luas permukaan = %lf", bolaLuasPermukaan(diameter / 2));
   outLine();
-  pauseMsg();
+  endMsg();
 }
 void menuLimasSegiempat()
 {
   double diameter, tinggi;
   head();
+  outLine();
+  outMsg("Bangun Ruang Limas Segiempat");
+  outLine();
   outMsg("Masukkan diameter alas");
   outLine();
   inputThisDouble("diameter = ", &diameter);
@@ -450,12 +457,15 @@ void menuLimasSegiempat()
   outMsg("volume = %lf", tabungVolume(diameter / 2, tinggi));
   outMsg("luas permukaan = %lf", tabungLuasPermukaan(diameter / 2, tinggi));
   outLine();
-  pauseMsg();
+  endMsg();
 }
 void menuPrismaSegitiga()
 {
   double diameter, tinggi;
   head();
+  outLine();
+  outMsg("Bangun Ruang Prisma Segitiga");
+  outLine();
   outMsg("Masukkan diameter alas");
   outLine();
   inputThisDouble("diameter = ", &diameter);
@@ -473,12 +483,15 @@ void menuPrismaSegitiga()
   outMsg("volume = %lf", tabungVolume(diameter / 2, tinggi));
   outMsg("luas permukaan = %lf", tabungLuasPermukaan(diameter / 2, tinggi));
   outLine();
-  pauseMsg();
+  endMsg();
 }
 void menuKerucut()
 {
   double diameter, tinggi;
   head();
+  outLine();
+  outMsg("Bangun Ruang Kerucut");
+  outLine();
   outMsg("Masukkan diameter alas");
   outLine();
   inputThisDouble("diameter = ", &diameter);
@@ -496,7 +509,7 @@ void menuKerucut()
   outMsg("volume = %lf", tabungVolume(diameter / 2, tinggi));
   outMsg("luas permukaan = %lf", tabungLuasPermukaan(diameter / 2, tinggi));
   outLine();
-  pauseMsg();
+  endMsg();
 }
 
 // fungsi rumus
