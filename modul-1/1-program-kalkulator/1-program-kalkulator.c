@@ -1,19 +1,32 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
 
-int perjumlahan(), pengurangan(), perkalian(), pembagian(), modulus();
+int perjumlahan();
+int pengurangan();
+int perkalian();
+int pembagian();
+int modulus();
+int ulangprogram();
 
 int main()
 {
   int i;
   printf("MENU OPERASI ARITMATIKA\n");
+  printf("\n");
   printf("1 = Perjumlahan\n");
   printf("2 = Pengurangan\n");
   printf("3 = Perkalian\n");
   printf("4 = Pembagian\n");
   printf("5 = Modulus\n");
-  printf("Pilihan : ");
-  scanf("%d", &i);
-
+  printf("Masukan Pilihan : ");
+  while (scanf("%d", &i) != 1 || i < 0 || i > 5)
+  {
+    printf("Masukan salah, silahkan Masukan Pilihan: ");
+    while (getchar() != '\n')
+      ;
+  }
+  system("cls");
   switch (i)
   {
   case 1:
@@ -32,9 +45,11 @@ int main()
     modulus();
     break;
   default:
-    printf("Invalid Input");
     break;
   }
+  system("pause");
+  system("cls");
+  ulangprogram();
 }
 int perjumlahan()
 {
@@ -43,29 +58,21 @@ int perjumlahan()
   printf("\n");
   printf("\n");
   printf("Angka pertama  : ");
-  if (scanf("%lf", &angka1) != 1)
+  while (scanf("%lf", &angka1) != 1)
   {
-    printf("\ninvalid , Masukan Angka\n");
-    return 1;
+    printf("invalid , Masukan Angka  :");
+    while (getchar() != '\n')
+      ;
   }
   printf("Angka kedua    : ");
-  if (scanf("%lf", &angka2) != 1)
+  while (scanf("%lf", &angka2) != 1)
   {
-    printf("invalid , Masukan Angka\n");
-    return 1;
+    printf("invalid , Masukan Angka  :");
+    while (getchar() != '\n')
+      ;
   }
   hasil = angka1 + angka2;
-  if (hasil == (int)hasil)
-  {
-    printf("\nHasilnya adalah: %.0lf\n", hasil);
-  }
-  else if (hasil == (double)hasil)
-  {
-    printf("\nHasilnya adalah: %.2lf\n", hasil);
-  }
-  else
-    printf("Hasilnya Invalid");
-
+  printf("\nHasilnya adalah: %g\n", hasil);
   return 0;
 }
 
@@ -76,30 +83,21 @@ int pengurangan()
   printf("\n");
   printf("\n");
   printf("Angka pertama  : ");
-  if (scanf("%lf", &angka1) != 1)
+  while (scanf("%lf", &angka1) != 1)
   {
-    printf("invalid , Masukan Angka\n");
-    return 1;
+    printf("invalid , Masukan Angka  :");
+    while (getchar() != '\n')
+      ;
   }
   printf("Angka kedua    : ");
-  if (scanf("%lf", &angka2) != 1)
+  while (scanf("%lf", &angka2) != 1)
   {
-    printf("invalid , Masukan Angka\n");
-    return 1;
+    printf("invalid , Masukan Angka  :");
+    while (getchar() != '\n')
+      ;
   }
-
   hasil = angka1 - angka2;
-  if (hasil == (int)hasil)
-  {
-    printf("\nHasilnya adalah: %.0lf\n", hasil);
-  }
-  else if (hasil == (double)hasil)
-  {
-    printf("\nHasilnya adalah: %.2lf\n", hasil);
-  }
-  else
-    printf("Hasilnya Invalid");
-
+  printf("\nHasilnya adalah: %g\n", hasil);
   return 0;
 }
 
@@ -110,30 +108,21 @@ int perkalian()
   printf("\n");
   printf("\n");
   printf("Angka pertama  : ");
-  if (scanf("%lf", &angka1) != 1)
+  while (scanf("%lf", &angka1) != 1)
   {
-    printf("invalid , Masukan Angka\n");
-    return 1;
+    printf("invalid , Masukan Angka  :");
+    while (getchar() != '\n')
+      ;
   }
   printf("Angka kedua    : ");
-  if (scanf("%lf", &angka2) != 1)
+  while (scanf("%lf", &angka2) != 1)
   {
-    printf("invalid , Masukan Angka\n");
-    return 1;
+    printf("invalid , Masukan Angka  :");
+    while (getchar() != '\n')
+      ;
   }
-
   hasil = angka1 * angka2;
-  if (hasil == (int)hasil)
-  {
-    printf("\nHasilnya adalah: %.0lf\n", hasil);
-  }
-  else if (hasil == (double)hasil)
-  {
-    printf("\nHasilnya adalah: %.2lf\n", hasil);
-  }
-  else
-    printf("Hasilnya Invalid");
-
+  printf("\nHasilnya adalah: %g\n", hasil);
   return 0;
 }
 
@@ -144,30 +133,21 @@ int pembagian()
   printf("\n");
   printf("\n");
   printf("Angka pertama  : ");
-  if (scanf("%lf", &angka1) != 1)
+  while (scanf("%lf", &angka1) != 1)
   {
-    printf("invalid , Masukan Angka\n");
-    return 1;
+    printf("invalid , Masukan Angka  :");
+    while (getchar() != '\n')
+      ;
   }
   printf("Angka kedua    : ");
-  if (scanf("%lf", &angka2) != 1)
+  while (scanf("%lf", &angka2) != 1)
   {
-    printf("invalid , Masukan Angka\n");
-    return 1;
+    printf("invalid , Masukan Angka  :");
+    while (getchar() != '\n')
+      ;
   }
-
   hasil = angka1 / angka2;
-  if (hasil == (int)hasil)
-  {
-    printf("\nHasilnya adalah: %.0lf\n", hasil);
-  }
-  else if (hasil == (double)hasil)
-  {
-    printf("\nHasilnya adalah: %.2lf\n", hasil);
-  }
-  else
-    printf("Hasilnya Invalid");
-
+  printf("\nHasilnya adalah: %g\n", hasil);
   return 0;
 }
 
@@ -181,7 +161,7 @@ int modulus()
   if (scanf("%d", &angka1) != 1)
   {
     printf("invalid , Masukan Angka\n");
-    return 1;
+    return 0;
   }
   printf("Angka kedua    : ");
   if (scanf("%d", &angka2) != 1)
@@ -193,4 +173,31 @@ int modulus()
   printf("\nHasilnya adalah  : %d\n", hasil);
 
   return 0;
+}
+
+int ulangprogram()
+{
+  int i;
+  printf("Apakah Anda Ingin Mengulang Program?    \n");
+  printf("\n");
+  printf("1. Ulang\n");
+  printf("2. Keluar\n");
+  printf("\n");
+  printf("Masukkan Pilihan : ");
+  while (scanf("%d", &i) != 1 || i < 0 || i > 5)
+  {
+    printf("Masukan salah, silahkan Masukan Pilihan lagi: ");
+    while (getchar() != '\n')
+      ;
+  }
+  switch (i)
+  {
+  case 1:
+    system("cls");
+    main();
+    break;
+  case 2:
+    printf("TERIMA KASIH SUDAH MENGGUNAKAN PROGRAM INI\n");
+    break;
+  }
 }
