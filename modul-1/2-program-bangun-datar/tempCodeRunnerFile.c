@@ -1,15 +1,30 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdarg.h>
-#include <ctype.h>
 #include <math.h>
+#include <stdlib.h>
+
+//declaration menu function
+void outline();
+void starting_screen();
+int ending_screen();
+int option_screen();
+void clear_terminal();
+void menu_segitiga();
+void menu_belahketupat();
+void menu_jajargenjang();
+
+//declaration calculation function
+double keliling_segitiga(double sisi_a, double sisi_b, double sisi_c);
+double luas_segitiga(double sisi_a, double sisi_b, double sisi_c);
+double keliling_belahketupat(double d1, double d2);
+double luas_belahketupat(double d1, double d2);
+double keliling_jajargenjang(double alas, double sisi);
+double luas_jajargenjang(double alas, double tinggi);
+
 
 //grafik
 void outline(){
   printf("\n--------------------------------------------------------------------\n");
 }
-
 //screen in terminal
 void starting_screen (){
   outline();
@@ -40,24 +55,21 @@ int ending_screen(){
   printf("Opsi = ");
   scanf("%d", &opsi_end);
 
-do {
     if (opsi_end == 1) {
-        option_screen();
+        return 1;
     } else if (opsi_end == 2) {
         printf("ANDA SUDAH KELUAR DARI PROGRAM!");
         exit(0);
     } else {
-        printf("ERROR: PERINTAH YANG ANDA PILIH TIDAK DITEMUKAN\n");
+        printf("ERROR: OPSI YANG ANDA PILIH TIDAK DITEMUKAN\n");
     }
   int c;
         while ((c = getchar()) != '\n' && c != EOF);
-    } while (opsi_end != 1 && opsi_end != 2);
 
-    return opsi_end;
+        return opsi_end;
 }
-int option_screen (){
-
-  int opsi_bd;
+int option_screen(){
+    int opsi_bd;
 
   outline();
   printf("\n-Silahlan untuk memilih opsi perhitungan bangun datar dibawah ini :  -\n");
@@ -90,9 +102,8 @@ int option_screen (){
   return opsi_bd;
 }
 void clear_terminal() {
-  printf("Silahkan menekan ENTER untuk menlanjutkan...");
-  getchar();
-    system("cls");
+    getchar();
+        system("cls");
 }
 
 //menu bangun datar 
@@ -111,17 +122,21 @@ void menu_segitiga(){
   printf("Sisi c =");
   scanf("%lf", &sisi_c);
   outline();
+  printf("\n              *Silahkan tekan enter untuk melanjutkan*              \n");
   outline();
   clear_terminal();
   outline();
-  printf("sisi a = %lf", sisi_a);
-  printf("sisi a = %lf", sisi_b);
-  printf("sisi a = %lf", sisi_c);
+  printf("sisi a = %.5lf\n", sisi_a);
+  printf("sisi a = %.5lf\n", sisi_b);
+  printf("sisi a = %.5lf\n", sisi_c);
   outline();
   printf("Hasil Perhitungan : ");
-  printf("Keliling = %lf", keliling_segitiga(sisi_a, sisi_b, sisi_c));
-  printf("Luas = %lf", luas_segitiga(sisi_a, sisi_b, sisi_c));
+  printf("\nKeliling = %.5lf", keliling_segitiga(sisi_a, sisi_b, sisi_c));
+  printf("\nLuas = %.5lf\n", luas_segitiga(sisi_a, sisi_b, sisi_c));
   outline();
+  printf("\n              *    Silahkan tekan enter...    *           \n");
+  outline();
+  clear_terminal();
   ending_screen();
 }
 void menu_belahketupat(){
@@ -137,16 +152,20 @@ void menu_belahketupat(){
   printf("Diagonal 2 =");
   scanf("%lf", &d2);
   outline();
+  printf("\n              *Silahkan tekan enter untuk melanjutkan*              \n");
   outline();
   clear_terminal();
   outline();
-  printf("Diagonal 1 = %lf", d1);
-  printf("Diagonal 2 = %lf", d2);
+  printf("\nDiagonal 1 = %.5f\n", d1);
+  printf("\nDiagonal 2 = %.5lf\n", d2);
   outline();
-  printf("Hasil Perhitungan : ");
-  printf("Keliling = %lf", keliling_belahketupat(d1, d2));
-  printf("Luas = %lf", luas_belahketupat(d1, d2));
+  printf("\nHasil Perhitungan : \n");
+  printf("\nKeliling = %.5lf", keliling_belahketupat(d1, d2));
+  printf("\nLuas = %.5lf\n", luas_belahketupat(d1, d2));
   outline();
+  printf("\n              *    Silahkan tekan enter...    *           \n");
+  outline();
+  clear_terminal();
   ending_screen();
 }
 void menu_jajargenjang(){
@@ -164,17 +183,21 @@ void menu_jajargenjang(){
   printf("Tinggi =");
   scanf("%lf", &tinggi);
   outline();
+  printf("\n              *    Silahkan tekan enter...    *           \n");
   outline();
   clear_terminal();
   outline();
-  printf("Alas = %lf", alas);
-  printf("Sisi = %lf", sisi);
-  printf("Tinggi = %lf", tinggi);
+  printf("\nAlas = %.5lf", alas);
+  printf("\nSisi = %.5lf", sisi);
+  printf("\nTinggi = %.5lf", tinggi);
   outline();
-  printf("Hasil Perhitungan : ");
-  printf("Keliling = %lf", keliling_jajargenjang(alas, sisi));
-  printf("Luas = %lf", luas_belahketupat(alas, tinggi));
+  printf("\nHasil Perhitungan : ");
+  printf("\nKeliling = %.5lf", keliling_jajargenjang(alas, sisi));
+  printf("\nLuas = %.5lf\n", luas_belahketupat(alas, tinggi));
   outline();
+  printf("\n              *    Silahkan tekan enter...    *           \n");
+  outline();
+  clear_terminal();
   ending_screen();
 
 }
@@ -182,8 +205,7 @@ void menu_jajargenjang(){
 
 
 //pemilihan menu
-int option(){
-  int opsi_bd;
+void option(int opsi_bd){
   switch(opsi_bd){
     case 1:
       menu_segitiga();
@@ -194,24 +216,20 @@ int option(){
     case 3:
       menu_jajargenjang();
       break;
-    case 4:
+  }
+        /*case 4:
       menu_trapesium();
       break;
     case 5:
       menu_lingkaran();
-      break;
-  }
+      break;*/
 
-}
-
-//deklarasi
-int myData(){
-  double sisi_a, sisi_b, sisi_c, d1, d2, alas, sisi, tinggi;
 }
 
 //fungsi rumus kalkulasi keliling dan luas bangun datar
 double keliling_segitiga(double sisi_a, double sisi_b, double sisi_c) {
-    return sisi_a + sisi_b + sisi_c;
+    double keliling = sisi_a + sisi_b + sisi_c;
+    return keliling;
 }
 double luas_segitiga(double sisi_a, double sisi_b, double sisi_c) {
     double s = keliling_segitiga(sisi_a, sisi_b, sisi_c) / 2;
@@ -243,20 +261,22 @@ double luas_jajargenjang(double alas, double tinggi){
 
 
 
-
-
 int main()
-{   
-  myData();
-  int opsi_bd;
+{   double sisi_a, sisi_b, sisi_c, d1, d2, alas, sisi, tinggi;
+    int opsi_bd;
+    int opsi_end;
 
-    starting_screen();
-    option_screen();
-    option(opsi_bd);
-    
+    while (1) {
+        starting_screen();
+        opsi_bd = option_screen();
+        option(opsi_bd);
 
-    
-    getchar();
+        opsi_end = ending_screen();
+        if (opsi_end == 2) {
+            printf("ANDA SUDAH KELUAR DARI PROGRAM!\n");
+            break;
+        }
+    }
+
     return 0;
 }
-
