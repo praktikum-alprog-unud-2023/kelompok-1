@@ -1,9 +1,15 @@
-# Fungsi Utility dalam utility.c
+# Fungsi Utility dalam utility.h
 
 **Desclimer:**
-**File utility.c hanya untuk catatan/ template, bukan untuk di-run**
+**File utility.h hanya untuk catatan/ template, bukan untuk di-run**
 
-File C ini (`utility.c`) berisi kumpulan fungsi dan prosedur utilitas yang dapat digunakan dalam berbagai bagian program Anda. Fungsi-fungsi ini dirancang untuk mempermudah tugas-tugas umum seperti menampilkan pesan, memvalidasi input pengguna, dan mengelola alur program.
+Cara Menggunakan file (`utility.h`) dengan meng-copy file ini pada folder yang sama dengan program atau memanggilnya dengan path yang benar jika berada dalam folder yang berbeda.
+
+Tambahkan header **<include> "utility.h"** pada bagian atas program C jika file (`utility.h`) di-copy pada folder yang sama dengan program C. Maka semua fungsi yang ada dalam file (`utility.h`) dapat digunakan dalam program C tanpa perlu menuliskannya ulang.
+
+Bisa juga kita menggunakan file (`utility.h`) yang tersimpan dalam folder (`validasi/utility/utility.h`) tanpa harus meng-copynya pada folder yang sama dengan program C. Namun harus disesuaikan path file-nya agar sesuai dengan lokasi yang dituju. Path yang dapat digunakan yaitu **#include "../../validasi/utility/utility.h"**, yang mana **../** berarti keluar dari folder.
+
+File C ini (`utility.h`) berisi kumpulan fungsi dan prosedur utilitas yang dapat digunakan dalam berbagai bagian program Anda. Fungsi-fungsi ini dirancang untuk mempermudah tugas-tugas umum seperti menampilkan pesan, memvalidasi input pengguna, dan mengelola alur program.
 
 ## Daftar Isi
 

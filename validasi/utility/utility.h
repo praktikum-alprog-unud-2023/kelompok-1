@@ -11,6 +11,21 @@
 // Deklarasi variabel global
 int pilihan;
 
+void endMsg();
+void inputThisInt(char *inputText, int *inputVariable);
+void inputThisDouble(char *inputText, double *inputVariable);
+void startingScreen();
+void head();
+void outLine();
+void outMsg(const char *format, ...);
+void statusMsg(char *);
+void pauseMsg();
+
+// Validasi input
+int validateInputInteger(char *string, int *integer);
+int validateInputDouble(char *string, double *floating_point);
+void input_binary_str(char *input_param);
+
 /*=================================================================================
   Tampilan Ketika Program Pertama Kali Dibuka
   Prosedur Pelengkap:
@@ -367,4 +382,47 @@ void inputThisDouble(char *inputText, double *inputVariable)
       pauseMsg();
     }
   } while (validateInputDouble(buffer, inputVariable) == 0 || *inputVariable < 0);
+}
+
+/*=================================================================================
+  Fungsi Untuk Menginputkan Bilangan Biner dan Memvalidasinya
+  Variabel yang digunakan dalam parameter misalnya:
+      char inputBinaryNumber[100];
+  Cara memanggil:
+      input_binary_str(inputBinaryNumber);
+      printf("%s\n", inputBinaryNumber);
+  =================================================================================
+*/
+void input_binary_str(char *input_param)
+{
+  char input[100];
+  int i = 0, error = 0;
+
+  fflush(stdin);
+  fgets(input, sizeof(input), stdin);
+
+  if (input[0] == '\0')
+    error = 1;
+
+  while (input[i] != '\0' && input[i] != '\n')
+  {
+    if (strchr("01", input[i]))
+    {
+      i++;
+    }
+    else
+    {
+      error = 1;
+      break;
+    }
+  }
+
+  if (error == 1)
+  {
+    printf("\nInvalid binary number!");
+    printf("\nSilahkan Masukan Angka Kembali : ");
+    return input_binary_str(input_param);
+  }
+  input[i] = '\0';
+  strcpy(input_param, input);
 }
