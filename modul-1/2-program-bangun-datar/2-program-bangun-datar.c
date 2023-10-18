@@ -167,6 +167,79 @@ int input_only_option(const char *str)
   }
   return 1;
 }
+double input_positive_double()
+{
+  char input[11];
+  int i = 0, error = 0, negative = 0, decimal = 0, whole_num = 0, fract_num = 0, chars = 0;
+  float zero_point = 1, output;
+
+  fflush(stdin);
+  fgets(input, sizeof(input), stdin);
+
+  if (input[0] == '\0')
+    error = 1;
+
+  while (input[i] != '\0' && input[i] != '\n')
+  {
+    if (input[i] == '-')
+    {
+      error = 1;
+      break;
+    }
+    else if (input[i] == '.')
+    {
+      decimal++;
+      if (decimal > 1 || input[i + 1] == '\0' || input[0] == '.')
+      {
+        error = 1;
+        break;
+      }
+      i++;
+    }
+    else if (isdigit(input[i]))
+    {
+      if (decimal == 1)
+      {
+        fract_num = (fract_num * 10) + (input[i] - 48);
+        chars++;
+        i++;
+      }
+      else
+      {
+        whole_num = (whole_num * 10) + (input[i] - 48);
+        i++;
+      }
+    }
+    else
+    {
+      error = 1;
+      break;
+    }
+  }
+
+  if (decimal == 1)
+  {
+    for (int j = 0; j < chars; j++)
+    {
+      zero_point /= 10;
+    }
+    output = fract_num * zero_point + whole_num;
+  }
+  else
+    output = whole_num;
+
+  if (negative == 1)
+    output -= (output * 2);
+
+  if (error == 1)
+  {
+    printf("\nInput Tidak Sesuai ");
+    printf("\nSilahkan Masukan Angka Kembali : ");
+    return input_positive_double();
+  }
+  else
+    return output;
+}
 
 // screen in terminal
 void starting_screen()
@@ -283,19 +356,19 @@ void menu_segitiga()
   outline();
   outMsg("Masukan panjang dari masing masing sisi");
   printf("Sisi a =");
-  sisi_a = input_positive_int();
+  sisi_a = input_positive_double();
   printf("Sisi b =");
-  sisi_b = input_positive_int();
+  sisi_b = input_positive_double();
   printf("Sisi c =");
-  sisi_c = input_positive_int();
+  sisi_c = input_positive_double();
   pauseMsg();
   clear_terminal();
   outline();
   outMsg("Diketahui : ");
   outline();
   printf("sisi a = %.5lf\n", sisi_a);
-  printf("sisi a = %.5lf\n", sisi_b);
-  printf("sisi a = %.5lf\n", sisi_c);
+  printf("sisi b = %.5lf\n", sisi_b);
+  printf("sisi c = %.5lf\n", sisi_c);
   outline();
   outMsg("Hasil Perhitungan :");
   outline();
@@ -317,9 +390,9 @@ void menu_belahketupat()
   outline();
   outMsg("Masukan panjang dari masing masing diagonal");
   printf("Diagonal 1 =");
-  d1 = input_positive_int();
+  d1 = input_positive_double();
   printf("Diagonal 2 =");
-  d2 = input_positive_int();
+  d2 = input_positive_double();
   pauseMsg();
   clear_terminal();
   outline();
@@ -348,11 +421,11 @@ void menu_jajargenjang()
   outline();
   outMsg("Masukan panjang dari alas, sisi, tinggi");
   printf("Alas   =");
-  alas = input_positive_int();
+  alas = input_positive_double();
   printf("Sisi   =");
-  sisi = input_positive_int();
+  sisi = input_positive_double();
   printf("Tinggi =");
-  tinggi = input_positive_int();
+  tinggi = input_positive_double();
   pauseMsg();
   clear_terminal();
   outline();
@@ -382,15 +455,15 @@ void menu_trapesium()
   outline();
   outMsg("Masukan panjang dari masing masing sisi");
   printf("Sisi atas =");
-  sisi_atas = input_positive_int();
+  sisi_atas = input_positive_double();
   printf("Sisi bawah =");
-  sisi_bawah = input_positive_int();
+  sisi_bawah = input_positive_double();
   printf("Sisi samping kanan =");
-  sisi_kanan = input_positive_int();
+  sisi_kanan = input_positive_double();
   printf("Sisi samping kiri =");
-  sisi_kiri = input_positive_int();
+  sisi_kiri = input_positive_double();
   printf("Sisi tinggi =");
-  tinggi = input_positive_int();
+  tinggi = input_positive_double();
   pauseMsg();
   clear_terminal();
   outline();
@@ -422,7 +495,7 @@ void menu_lingkaran()
   outline();
   outMsg("Masukan panjang dari jari-jari lingkaran");
   printf("Jari-jari =");
-  r = input_positive_int();
+  r = input_positive_double();
   pauseMsg();
   clear_terminal();
   outline();
@@ -469,8 +542,12 @@ double keliling_segitiga(double sisi_a, double sisi_b, double sisi_c)
 }
 double luas_segitiga(double sisi_a, double sisi_b, double sisi_c)
 {
-  double s = keliling_segitiga(sisi_a, sisi_b, sisi_c) / 2;
-  return sqrt(s * (s - sisi_a) * (s - sisi_b) * (s - sisi_c));
+  double s;
+  double luas;
+
+  s = (sisi_a + sisi_b + sisi_c) / 2;
+  luas = sqrt(s * (s - sisi_a) * (s - sisi_b) * (s - sisi_c));
+  return luas;
 }
 double keliling_belahketupat(double d1, double d2)
 {
