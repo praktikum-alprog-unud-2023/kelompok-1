@@ -24,80 +24,84 @@ void penjumlahan();
 void pengurangan();
 void perkalian();
 void pembagian();
-void  modulus();
+void modulus();
 void menuUtama();
 
 int main()
 {
-startingScreen();
+  startingScreen();
   menuUtama();
   pauseMsg();
   ulangprogram();
 }
 
-void penjumlahan(){
-    double angka1, angka2, hasil;
-    head();
-    outLine();
-    outMsg("OPRASI PENJUMLAHAN");
-    outLine();
-    printf("angka pertama : ");
-    validasiBil(&angka1);
-    printf("angka kedua   : ");
-    validasiBil(&angka2);
-    hasil = angka1 + angka2;
-    outLine();
+void penjumlahan()
+{
+  double angka1, angka2, hasil;
+  head();
+  outLine();
+  outMsg("OPRASI PENJUMLAHAN");
+  outLine();
+  printf("angka pertama : ");
+  validasiBil(&angka1);
+  printf("angka kedua   : ");
+  validasiBil(&angka2);
+  hasil = angka1 + angka2;
+  outLine();
   outMsg("Hasilnya adalah %g", hasil);
   outLine();
-  }
-void pengurangan(){
-    double angka1, angka2, hasil;
-    head();
-    outLine();
-    outMsg("OPRASI PENGURANGAN");
-    outLine();
-    printf("angka pertama : ");
-    validasiBil(&angka1);
-    printf("angka kedua   : ");
-    validasiBil(&angka2);
-    hasil = angka1 - angka2;
-    outLine();
+}
+void pengurangan()
+{
+  double angka1, angka2, hasil;
+  head();
+  outLine();
+  outMsg("OPRASI PENGURANGAN");
+  outLine();
+  printf("angka pertama : ");
+  validasiBil(&angka1);
+  printf("angka kedua   : ");
+  validasiBil(&angka2);
+  hasil = angka1 - angka2;
+  outLine();
   outMsg("Hasilnya adalah %g", hasil);
   outLine();
-  }
-  void perkalian(){
-    double angka1, angka2, hasil;
-    head();
-    outLine();
-    outMsg("OPRASI PERKALIAN");
-    outLine();
-    printf("angka pertama : ");
-    validasiBil(&angka1);
-    printf("angka kedua   : ");
-    validasiBil(&angka2);
-    hasil = angka1 * angka2;
-   outLine();
+}
+void perkalian()
+{
+  double angka1, angka2, hasil;
+  head();
+  outLine();
+  outMsg("OPRASI PERKALIAN");
+  outLine();
+  printf("angka pertama : ");
+  validasiBil(&angka1);
+  printf("angka kedua   : ");
+  validasiBil(&angka2);
+  hasil = angka1 * angka2;
+  outLine();
   outMsg("Hasilnya adalah %g", hasil);
   outLine();
-  }
+}
 
-  void pembagian(){
-    double angka1, angka2, hasil;
-    head();
-    outLine();
-    outMsg("OPRASI PEMBAGIAN");
-    outLine();
-    printf("angka pertama : ");
-    validasiBil(&angka1);
-    printf("angka kedua   : ");
-    validasiBil(&angka2);
-    hasil = angka1 / angka2;
-   outLine();
+void pembagian()
+{
+  double angka1, angka2, hasil;
+  head();
+  outLine();
+  outMsg("OPRASI PEMBAGIAN");
+  outLine();
+  printf("angka pertama : ");
+  validasiBil(&angka1);
+  printf("angka kedua   : ");
+  validasiBil(&angka2);
+  hasil = angka1 / angka2;
+  outLine();
   outMsg("Hasilnya adalah %g", hasil);
   outLine();
-  }
+}
 
-  void modulus()
+void modulus()
 {
   int angka1, angka2, hasil;
   head();
@@ -114,24 +118,28 @@ void pengurangan(){
   outLine();
 }
 
-
-int validasiBil(double *bil) {
-    char strBil[100];
-    while(1){
-        if (scanf("%[^\n]", strBil) != 1){
-            printf("Input harus berupa bilangan, silahkan ulangi kembali: ");
-            getchar() != '\n';
-        } 
-        else{
-            char *endptr;
-            *bil = strtod(strBil, &endptr);
-            if (*endptr == '\0'){
-                getchar() != '\n';
-                return *bil;
-                break;
-            }
-}
-}
+int validasiBil(double *bil)
+{
+  char strBil[100];
+  while (1)
+  {
+    if (scanf("%[^\n]", strBil) != 1)
+    {
+      printf("Input harus berupa bilangan, silahkan ulangi kembali: ");
+      getchar() != '\n';
+    }
+    else
+    {
+      char *endptr;
+      *bil = strtod(strBil, &endptr);
+      if (*endptr == '\0')
+      {
+        getchar() != '\n';
+        return *bil;
+        break;
+      }
+    }
+  }
 }
 int validasiInputInteger(char *string, int *integer)
 {
@@ -194,12 +202,12 @@ void inputInt(char *inputText, int *inputVariable)
     }
     fgets(buffer, BUFFER_SIZE, stdin);
 
-    if (validasiInputInteger(buffer, inputVariable) ==0)
+    if (validasiInputInteger(buffer, inputVariable) == 0)
     {
       statusMsg("ERROR: ANDA TIDAK MEMASUKKAN ANGKA");
     }
 
-    if (*inputVariable <=0)
+    if (*inputVariable <= 0)
     {
       statusMsg("ERROR: BILANGAN YANG DIMASUKKAN BUKAN BILANGAN POSITIF");
     }
@@ -219,10 +227,9 @@ void inputPilihan(char *inputText, int *inputVariable)
     }
     fgets(buffer, BUFFER_SIZE, stdin);
 
-    if (validasiInputInteger(buffer, inputVariable) ==0)
+    if (validasiInputInteger(buffer, inputVariable) == 0)
     {
       statusMsg("ERROR: ANDA TIDAK MEMASUKKAN NOMOR PERINTAH");
-    
     }
 
     if (*inputVariable < 0)
@@ -231,8 +238,6 @@ void inputPilihan(char *inputText, int *inputVariable)
     }
   } while (validasiInputInteger(buffer, inputVariable) == 0 || *inputVariable < 0);
 }
-
-
 
 void outLine() // prosedur menampilkan garis
 {
@@ -311,7 +316,6 @@ void head() // tampilan head pada program
   outLine();
 }
 
-
 void ulangprogram() // prosedur menampilkan status
 {
   system("cls");
@@ -334,7 +338,7 @@ void ulangprogram() // prosedur menampilkan status
       exit(0);
     }
     else
-    statusMsg("ERROR: PERINTAH YANG ANDA PILIH TIDAK DITEMUKAN");
+      statusMsg("ERROR: PERINTAH YANG ANDA PILIH TIDAK DITEMUKAN");
     inputPilihan("Masukkan perintah Kembali: ", &pilihan);
     fflush(stdin);
   } while (pilihan != 1 || pilihan != 2);
