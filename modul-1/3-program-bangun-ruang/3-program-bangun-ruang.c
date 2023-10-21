@@ -7,7 +7,6 @@
 #include <stdarg.h>
 #include <ctype.h>
 #include <math.h>
-
 // Konstanta untuk ukuran buffer
 #define BUFFER_SIZE 4096
 
@@ -67,7 +66,6 @@ int main()
 // validator
 int validateInputInteger(char *string, int *integer)
 {
-
   int i = 0;
 
   while (isspace(string[i]))
@@ -117,6 +115,7 @@ int validateInputInteger(char *string, int *integer)
 
   return 1;
 }
+
 int validateInputDouble(char *string, double *floating_point)
 {
   int i = 0;
@@ -177,6 +176,7 @@ int validateInputDouble(char *string, double *floating_point)
 
   return 1;
 }
+
 void inputThisInt(char *inputText, int *inputVariable)
 {
   int parsed_correct = 1;
@@ -204,6 +204,7 @@ void inputThisInt(char *inputText, int *inputVariable)
     }
   } while (validateInputInteger(buffer, inputVariable) == 0 || *inputVariable < 0);
 }
+
 void inputThisDouble(char *inputText, double *inputVariable)
 {
   int parsed_correct = 1;
@@ -267,6 +268,7 @@ void startingScreen() // tampilan head pada program
   outMsg("");
   pauseMsg();
 }
+
 void head() // tampilan head pada program
 {
   system("cls");
@@ -274,10 +276,12 @@ void head() // tampilan head pada program
   outMsg("Program Menghitung Volume dan Luas Permukaan Bangun Ruang");
   outLine();
 }
+
 void outLine() // prosedur menampilkan garis
 {
   printf("|=================================================================================|\n");
 }
+
 void outMsg(const char *format, ...) // prosedur menampilkan pesan
 {
   va_list args;
@@ -306,12 +310,14 @@ void outMsg(const char *format, ...) // prosedur menampilkan pesan
   tempMessage[outputLength - 1] = '\0'; // Pastikan null-terminated string
   printf("|%s|\n", tempMessage);
 }
+
 void statusMsg(char *inputText) // prosedur menampilkan status
 {
   outLine();
   outMsg(inputText);
   outLine();
 }
+
 void endMsg() // prosedur menampilkan status
 {
   outLine();
@@ -334,6 +340,7 @@ void endMsg() // prosedur menampilkan status
     endMsg();
   } while (pilihan != 1 || pilihan != 2);
 }
+
 void pauseMsg()
 {
   outMsg("Press enter to continue . . .");
@@ -433,6 +440,7 @@ void menuBola()
   outLine();
   endMsg();
 }
+
 void menuLimasSegiempat()
 {
   double diameter, tinggi;
@@ -459,6 +467,7 @@ void menuLimasSegiempat()
   outLine();
   endMsg();
 }
+
 void menuPrismaSegitiga()
 {
   double diameter, tinggi;
@@ -485,6 +494,7 @@ void menuPrismaSegitiga()
   outLine();
   endMsg();
 }
+
 void menuKerucut()
 {
   double diameter, tinggi;
@@ -518,6 +528,7 @@ double tabungVolume(double radius, double tinggi)
 {
   return 22 / 7 * pow(radius, 2) * tinggi;
 }
+
 double tabungLuasPermukaan(double radius, double tinggi)
 {
   return 2 * 22 / 7 * radius * tinggi + 2 * 22 / 7 * pow(radius, 3);
@@ -527,6 +538,7 @@ double bolaVolume(double radius)
 {
   return 4 / 3 * 22 / 7 * pow(radius, 3);
 }
+
 double bolaLuasPermukaan(double radius)
 {
   return 4 * 22 / 7 * pow(radius, 2);
@@ -536,6 +548,7 @@ double limasSegiempatVolume(double luasAlas, double tinggi)
 {
   return 1 / 2 * luasAlas * tinggi;
 }
+
 double limasSegiempatLuasPermukaan(double luasAlas, double luasSegitiga1, double luasSegitiga2, double luasSegitiga3, double luasSegitiga4)
 {
   return luasAlas + luasSegitiga1 + luasSegitiga2 + luasSegitiga3 + luasSegitiga4;
@@ -545,6 +558,7 @@ double prismaSegitigaVolume(double luasAlas, double tinggi)
 {
   return 1 / 2 * luasAlas * tinggi;
 }
+
 double prismaSegitigaLuasPermukaan(double luasAlas, double luasSegitiga1, double luasSegitiga2, double luasSegitiga3, double luasSegitiga4)
 {
   return luasAlas + luasSegitiga1 + luasSegitiga2 + luasSegitiga3 + luasSegitiga4;
@@ -554,6 +568,7 @@ double kerucutVolume(double luasAlas, double tinggi)
 {
   return 1 / 2 * luasAlas * tinggi;
 }
+
 double kerucutLuasPermukaan(double luasAlas, double luasSegitiga1, double luasSegitiga2, double luasSegitiga3, double luasSegitiga4)
 {
   return luasAlas + luasSegitiga1 + luasSegitiga2 + luasSegitiga3 + luasSegitiga4;
