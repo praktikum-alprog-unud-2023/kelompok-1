@@ -95,6 +95,13 @@ void pembagian()
   validasiBil(&angka1);
   printf("angka kedua   : ");
   validasiBil(&angka2);
+  while (angka2 ==0) {
+    outLine();
+    outMsg("Inputan Invalid");
+    outLine();
+    printf("Masukan Angka  :");
+    validasiBil(&angka2);
+  }
   hasil = angka1 / angka2;
   outLine();
   outMsg("Hasilnya adalah %g", hasil);
