@@ -601,6 +601,13 @@ double luas_lingkaran(double r)
 int main()
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+  printf("Hello World!");
+
+  printf("Ini soal 2");
+=======
+>>>>>>> 4b3a5526f96a929f7c8b3a94cf22b22857fa7428
   double sisi_a, sisi_b, sisi_c, d1, d2, alas, sisi, tinggi, sisi_atas, sisi_bawah, sisi_samping_kanan, sisi_samping_kiri, r;
   int opsi_bd;
   int repeat_program = 1;
@@ -619,10 +626,14 @@ int main()
       continue;
     }
   }
+<<<<<<< HEAD
 =======
   printf("Hello World!");
 
   printf("Ini soal 2");
 >>>>>>> wira
+=======
+>>>>>>> main
+>>>>>>> 4b3a5526f96a929f7c8b3a94cf22b22857fa7428
   return 0;
 }
