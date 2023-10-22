@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "d:/kelompok-1/modul-1/1-program-kalkulator",
-      "program": "d:/kelompok-1/modul-1/1-program-kalkulator/build/Debug/outDebug",
+      "cwd": "c:/Users/WIRAGUNA/projects/toki",
+      "program": "c:/Users/WIRAGUNA/projects/toki/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
