@@ -600,6 +600,11 @@ double luas_lingkaran(double r)
 
 int main()
 {
+<<<<<<< HEAD
+  printf("Hello World!");
+
+  printf("Ini soal 2");
+=======
   double sisi_a, sisi_b, sisi_c, d1, d2, alas, sisi, tinggi, sisi_atas, sisi_bawah, sisi_samping_kanan, sisi_samping_kiri, r;
   int opsi_bd;
   int repeat_program = 1;
@@ -618,5 +623,6 @@ int main()
       continue;
     }
   }
+>>>>>>> main
   return 0;
 }

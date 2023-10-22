@@ -8,18 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-<<<<<<< HEAD
-<<<<<<< HEAD
-      "cwd": "d:/UDAYANA/SEMESTER 3/PRAKTIKUM ALPRO/kelompok-1",
-      "program": "d:/UDAYANA/SEMESTER 3/PRAKTIKUM ALPRO/kelompok-1/build/Debug/outDebug",
-=======
       "cwd": "d:/kelompok-1/modul-1/1-program-kalkulator",
       "program": "d:/kelompok-1/modul-1/1-program-kalkulator/build/Debug/outDebug",
->>>>>>> 263a2a5a74db7939039e3813eeb400a0095b37fc
-=======
-      "cwd": "c:/Users/WIRAGUNA/projects/toki",
-      "program": "c:/Users/WIRAGUNA/projects/toki/build/Debug/outDebug",
->>>>>>> 7a854653a286b20b06ce18e3855fe732e5324edf
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
