@@ -8,7 +8,6 @@
 
 int pilihan;
 int validasiInputInteger(char *string, int *integer);
-
 void ulangprogram();
 void startingScreen();
 void head();
@@ -51,6 +50,7 @@ void penjumlahan()
   outMsg("Hasilnya adalah %g", hasil);
   outLine();
 }
+
 void pengurangan()
 {
   double angka1, angka2, hasil;
@@ -67,6 +67,7 @@ void pengurangan()
   outMsg("Hasilnya adalah %g", hasil);
   outLine();
 }
+
 void perkalian()
 {
   double angka1, angka2, hasil;
@@ -95,7 +96,8 @@ void pembagian()
   validasiBil(&angka1);
   printf("angka kedua   : ");
   validasiBil(&angka2);
-  while (angka2 ==0) {
+  while (angka2 == 0)
+  {
     outLine();
     outMsg("Inputan Invalid");
     outLine();
@@ -250,6 +252,7 @@ void outLine() // prosedur menampilkan garis
 {
   printf("|=================================================================================|\n");
 }
+
 void outMsg(const char *format, ...) // prosedur menampilkan pesan
 {
   va_list args;
@@ -285,6 +288,7 @@ void statusMsg(char *inputText) // prosedur menampilkan status
   outMsg(inputText);
   outLine();
 }
+
 void pauseMsg()
 {
   outMsg("Press enter to continue . . .");
