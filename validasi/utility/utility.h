@@ -10,7 +10,9 @@
 
 // Deklarasi variabel global
 int pilihan;
+char namaProgram[];
 
+void menuUtama();
 void endMsg();
 void inputThisInt(char *inputText, int *inputVariable);
 void inputThisDouble(char *inputText, double *inputVariable);
@@ -40,7 +42,7 @@ void startingScreen()
   outLine();
   outLine();
   outMsg("");
-  outMsg("NAMA PROGRAM");
+  outMsg("%s", namaProgram);
   outMsg("");
   outLine();
   outLine();
@@ -76,7 +78,7 @@ void head() // tampilan head pada program
 {
   system("cls");
   outLine();
-  outMsg("Nama Program");
+  outMsg("%s", namaProgram);
   outLine();
 }
 
@@ -123,6 +125,81 @@ void outMsg(const char *format, ...) // prosedur menampilkan pesan
 }
 
 /*=================================================================================
+  Prosedur Untuk mencetak Teks Box
+  Library:
+      #include <stdio.h>
+      #include <stdarg.h>
+      #include <stdlib.h>
+      #include <string.h>
+  =================================================================================
+*/
+void txtBox(const char *format, int length, char alignment, ...) // prosedur menampilkan pesan
+{
+  va_list args;
+  va_start(args, alignment);
+
+  char *outputMessage = (char *)malloc((length + 1) * sizeof(char));
+  if (outputMessage == NULL)
+  {
+    // Handle memory allocation failure
+    return;
+  }
+
+  int outputLength = length;
+
+  vsnprintf(outputMessage, outputLength, format, args);
+
+  va_end(args);
+
+  int inputLength = strlen(outputMessage);
+  int numSpaces = outputLength - inputLength;
+
+  if (numSpaces < 0)
+  {
+    numSpaces = 0; // Avoid negative padding
+  }
+
+  char *tempMessage = (char *)malloc((outputLength + 1) * sizeof(char));
+  if (tempMessage == NULL)
+  {
+    // Handle memory allocation failure
+    free(outputMessage);
+    return;
+  }
+
+  if (alignment == 'L' || alignment == 'l')
+  { // Left-aligned
+    strcpy(tempMessage, outputMessage);
+    memset(tempMessage + inputLength, ' ', numSpaces);
+  }
+  else if (alignment == 'R' || alignment == 'r')
+  { // Right-aligned
+    memset(tempMessage, ' ', numSpaces);
+    strcpy(tempMessage + numSpaces, outputMessage);
+  }
+  else if (alignment == 'C' || alignment == 'c')
+  { // Centered
+    int numLeftSpaces = numSpaces / 2;
+    int numRightSpaces = numSpaces - numLeftSpaces;
+    memset(tempMessage, ' ', numLeftSpaces);
+    strcpy(tempMessage + numLeftSpaces, outputMessage);
+    memset(tempMessage + numLeftSpaces + inputLength, ' ', numRightSpaces);
+  }
+  else
+  {
+    // Default to left-align if an invalid alignment is provided
+    strcpy(tempMessage, outputMessage);
+    memset(tempMessage + inputLength, ' ', numSpaces);
+  }
+
+  tempMessage[outputLength] = '\0'; // Ensure null-terminated string
+  printf("%s", tempMessage);
+
+  free(outputMessage);
+  free(tempMessage);
+}
+
+/*=================================================================================
   Prosedur Untuk Mencetak Pesan Kesalahan
   Prosedur Pelengkap:
       outMsg("pesan");
@@ -148,6 +225,7 @@ void statusMsg(char *inputText) // prosedur menampilkan status
 */
 void endMsg() // prosedur menampilkan status
 {
+  int pilihan;
   outLine();
   outMsg("PROGRAM SELESAI");
   outMsg("< 1 > Ulangi            < 2 > Keluar");
@@ -157,7 +235,7 @@ void endMsg() // prosedur menampilkan status
     if (pilihan == 1)
     {
       // arahkan program kembali ke menu utama
-      // menuUtama();
+      menuUtama();
     }
     else if (pilihan == 2)
     {
