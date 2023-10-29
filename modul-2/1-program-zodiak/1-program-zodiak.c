@@ -178,72 +178,75 @@ void inputPilihan(char *inputText, int *inputVariable)
   } while (validasiInputInteger(buffer, inputVariable) == 0 || *inputVariable < 0);
 }
 
-
 int validasiInputInteger(char *string, int *integer)
 {
-    int i = 0;
-    while (isspace(string[i]))
-        i++;
+  int i = 0;
+  while (isspace(string[i]))
+    i++;
 
-    int length = strlen(string);
+  int length = strlen(string);
 
-    if (length == i)
-        return 0;
+  if (length == i)
+    return 0;
 
-    char integer_buffer[BUFFER_SIZE];
-    int integer_chars = 0;
+  char integer_buffer[BUFFER_SIZE];
+  int integer_chars = 0;
 
-    // in the case of a negative integer, the first character may be a '-' symbol
-    if (string[i] == '-')
-    {
-        integer_buffer[integer_chars] = '-';
-        integer_chars++;
-        i++;
+  // in the case of a negative integer, the first character may be a '-' symbol
+  if (string[i] == '-')
+  {
+    integer_buffer[integer_chars] = '-';
+    integer_chars++;
+    i++;
 
-        if (!isdigit(string[i]) && string[i] != '\n')
-            return 0;
-    }
+    if (!isdigit(string[i]) && string[i] != '\n')
+      return 0;
+  }
 
-    while (i < length && !isspace(string[i]) && string[i] != '\n')
-    {
-        if (!isdigit(string[i]))
-            return 0;
+  while (i < length && !isspace(string[i]) && string[i] != '\n')
+  {
+    if (!isdigit(string[i]))
+      return 0;
 
-        integer_buffer[integer_chars] = string[i];
-        integer_chars++;
-        i++;
-    }
-    integer_buffer[integer_chars] = '\0';
+    integer_buffer[integer_chars] = string[i];
+    integer_chars++;
+    i++;
+  }
+  integer_buffer[integer_chars] = '\0';
 
-    if (integer_chars == 0)
-        return 0;
+  if (integer_chars == 0)
+    return 0;
 
-    if (string[i] != '\0' && string[i] != '\n')
-        return 0;
+  if (string[i] != '\0' && string[i] != '\n')
+    return 0;
 
-    *integer = atoi(integer_buffer);
+  *integer = atoi(integer_buffer);
 
-    return 1;
+  return 1;
 }
 
 void inputTanggal(char *inputText, int *inputVariable)
 {
-    int parsed_correct = 1;
-    char buffer[BUFFER_SIZE];
+  int parsed_correct = 1;
+  char buffer[BUFFER_SIZE];
 
-    do
+  do
+  {
+    if (inputText != NULL)
     {
-        if (inputText != NULL)
-        {
-            printf("%s", inputText);
-        }
-        fgets(buffer, BUFFER_SIZE, stdin);
+      printf("%s", inputText);
+    }
+    fgets(buffer, BUFFER_SIZE, stdin);
 
-        if (validasiInputInteger(buffer, inputVariable) == 0)
-        {
-            statusMsg("ERROR: TANGGAL YANG ANDA MASUKKAN TIDAK VALID");
-        }
-    } while (*inputVariable < 1 || *inputVariable > 31);
+    if (validasiInputInteger(buffer, inputVariable) == 0)
+    {
+      statusMsg("ERROR: TANGGAL YANG ANDA MASUKKAN TIDAK VALID");
+    }
+    else if (*inputVariable >= 32)
+    {
+      statusMsg("ERROR: TANGGAL YANG ANDA MASUKKAN TIDAK VALID");
+    }
+  } while (*inputVariable < 1 || *inputVariable >= 32);
 }
 
 // utilities
