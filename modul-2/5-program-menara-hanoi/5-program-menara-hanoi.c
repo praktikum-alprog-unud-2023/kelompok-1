@@ -1,24 +1,50 @@
 #include <stdio.h>
 
-int hanoi_rekursif(int n, char sumber, char bantu, char tujuan) {
-    if (n == 1) {
-        printf("Pindahkan cakram 1 dari %c ke %c\n", sumber, tujuan);
-        return 1;
-    } else {
-        int langkah1 = hanoi_rekursif(n - 1, sumber, tujuan, bantu);
-        printf("Pindahkan cakram %d dari %c ke %c\n", n, sumber, tujuan);
-        int langkah2 = 1;
-        int langkah3 = hanoi_rekursif(n - 1, bantu, sumber, tujuan);
-        return langkah1 + langkah2 + langkah3;
+void hanoi_iteratif(int n, char sumber, char bantu, char tujuan) {
+    int stack[n * n][4];
+    int top = -1;
+    int langkah = 0;
+    stack[++top][0] = n;
+    stack[top][1] = sumber;
+    stack[top][2] = bantu;
+    stack[top][3] = tujuan;
+
+    while (top >= 0) {
+        int n = stack[top][0];
+        char sumber = stack[top][1];
+        char bantu = stack[top][2];
+        char tujuan = stack[top][3];
+        top--;
+
+        if (n == 1) {
+            printf("Pindahkan cakram 1 dari %c ke %c\n", sumber, tujuan);
+            langkah++;
+        } else {
+            stack[++top][0] = n - 1;
+            stack[top][1] = bantu;
+            stack[top][2] = sumber;
+            stack[top][3] = tujuan;
+
+            stack[++top][0] = 1;
+            stack[top][1] = sumber;
+            stack[top][2] = bantu;
+            stack[top][3] = tujuan;
+
+            stack[++top][0] = n - 1;
+            stack[top][1] = sumber;
+            stack[top][2] = tujuan;
+            stack[top][3] = bantu;
+        }
     }
+
+    printf("Jumlah langkah minimum: %d\n", langkah);
 }
 
 int main() {
     int n;
     printf("Masukkan jumlah cakram: ");
     scanf("%d", &n);
-    
-    int total_langkah = hanoi_rekursif(n, 'A', 'B', 'C');
-    printf("Jumlah langkah minimum: %d\n", total_langkah);
+
+    hanoi_iteratif(n, 'A', 'B', 'C');
     return 0;
 }
