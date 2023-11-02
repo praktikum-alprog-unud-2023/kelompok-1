@@ -40,7 +40,7 @@ void startingScreen()
   outLine();
   outLine();
   outMsg("");
-  outMsg("NAMA PROGRAM");
+  outMsg("Program Nilai Akhir");
   outMsg("");
   outLine();
   outLine();
@@ -76,7 +76,7 @@ void head() // tampilan head pada program
 {
   system("cls");
   outLine();
-  outMsg("Nama Program");
+  outMsg("Program Nilai Akhir");
   outLine();
 }
 
@@ -156,8 +156,7 @@ void endMsg() // prosedur menampilkan status
   {
     if (pilihan == 1)
     {
-      // arahkan program kembali ke menu utama
-      // menuUtama();
+      main();
     }
     else if (pilihan == 2)
     {

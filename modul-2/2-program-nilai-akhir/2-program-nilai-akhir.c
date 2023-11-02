@@ -1,76 +1,105 @@
+#include "../../validasi/utility/utility.h"
+#include <stdbool.h>
 #include <stdio.h>
+#include <stdarg.h>
+#include <string.h>
+#include <stdlib.h>
 
-void tampilan()
+void startingScreen();
+void head();
+void outLine();
+void endMsg();
+
+float input(float min, float max)
 {
-  printf("=============== Kelompok 1 =============== \n");
-  printf("===== Program Menentukan Nilai Akhir ===== \n");
+  float select;
+  char enter;
+  if (scanf("%f%c", &select, &enter) != 2 || enter != '\n' || select < min || select > max)
+  {
+    fflush(stdin);
+    printf("Inputan salah, Masukan Bilangan Bulat Positif Dari %.2f Sampai %.2f: ", min, max);
+    return input(min, max);
+  }
+  else
+  {
+    return select;
+  }
 }
 
 int main()
 {
   float absensi, tugas1, tugas2, tugas3, quiz, uts, uas, NilaiAkhir, TugasRata;
-  tampilan();
+  startingScreen();
+  head();
+  outLine();
 
   printf("Masukkan nilai Absensi (maks. 15): ");
-  scanf("%f", &absensi);
-  // if (absensi > 15)
-  // {
-  //   printf("ERROR: Absensi Yang Anda Pilih Tidak Ditemukan \n");
-  //   kehadiran();
-  // }
+  absensi = input(0, 15);
+  head();
+  outLine();
 
   printf("Masukkan Nilai Tugas 1 : ");
-  scanf("%f", &tugas1);
+  tugas1 = input(0, 100);
   printf("Masukkan nilai Tugas 2 : ");
-  scanf("%f", &tugas2);
+  tugas2 = input(0, 100);
   printf("Masukkan nilai Tugas 3 : ");
-  scanf("%f", &tugas3);
+  tugas3 = input(0, 100);
+  head();
+  outLine();
   printf("Masukkan nilai Quiz: ");
-  scanf("%f", &quiz);
+  quiz = input(0, 100);
+  head();
+  outLine();
   printf("Masukkan nilai UTS: ");
-  scanf("%f", &uts);
+  uts = input(0, 100);
+  head();
+  outLine();
   printf("Masukkan nilai UAS: ");
-  scanf("%f", &uas);
+  uas = input(0, 100);
+  head();
+  outLine();
+
   TugasRata = (tugas1 + tugas2 + tugas3) / 3;
   NilaiAkhir = ((absensi / 15) * 5) + (TugasRata * 0.2) + (quiz * 0.15) + (uts * 0.3) + (uas * 0.3);
-  printf("%f", NilaiAkhir);
+  printf("Hasil Akhir : %.2f", NilaiAkhir);
 
   if (NilaiAkhir >= 0 && NilaiAkhir < 45)
   {
-    printf("Nilai Akhir: E");
+    printf("\nNilai Akhir: E\n");
   }
   else if (NilaiAkhir >= 45 && NilaiAkhir < 50)
   {
-    printf("Nilai Akhir: D");
+    printf("\nNilai Akhir: D\n");
   }
   else if (NilaiAkhir >= 50 && NilaiAkhir < 55)
   {
-    printf("Nilai Akhir: D+");
+    printf("\nNilai Akhir: D+\n");
   }
   else if (NilaiAkhir >= 55 && NilaiAkhir < 60)
   {
-    printf("Nilai Akhir: C");
+    printf("\nNilai Akhir: C\n");
   }
   else if (NilaiAkhir >= 60 && NilaiAkhir < 65)
   {
-    printf("Nilai Akhir: C+");
+    printf("\nNilai Akhir: C+\n");
   }
   else if (NilaiAkhir >= 65 && NilaiAkhir < 75)
   {
-    printf("Nilai Akhir: B");
+    printf("\nNilai Akhir: B\n");
   }
   else if (NilaiAkhir >= 75 && NilaiAkhir < 80)
   {
-    printf("Nilai Akhir: B+");
+    printf("\nNilai Akhir: B+\n");
   }
   else if (NilaiAkhir >= 80 && NilaiAkhir <= 100)
   {
-    printf("Nilai Akhir: A");
+    printf("\nNilai Akhir: A\n");
   }
   else
   {
     printf("Input nilai tidak valid.");
   }
+  endMsg();
 
   return 0;
 }
