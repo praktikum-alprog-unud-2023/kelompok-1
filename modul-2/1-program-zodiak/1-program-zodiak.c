@@ -23,8 +23,16 @@ void inputPilihan(char *inputText, int *inputVariable);
 void inputTanggal(char *inputText, int *inputVariable);
 void inputBulan(char *inputText, int *inputVariable);
 
-// validasi
+//main
+int main()
+{
+  startingScreen();
+  menuUtama();
+  system("pause");
+  ulangProgram();
+}
 
+// validasi
 int validasiBulan(char *input, int *output)
 {
   int bulan_angka;
@@ -242,7 +250,7 @@ void inputTanggal(char *inputText, int *inputVariable)
     {
       statusMsg("ERROR: TANGGAL YANG ANDA MASUKKAN TIDAK VALID");
     }
-    else if (*inputVariable >= 32)
+    else if (*inputVariable >= 32 || *inputVariable <1)
     {
       statusMsg("ERROR: TANGGAL YANG ANDA MASUKKAN TIDAK VALID");
     }
@@ -320,6 +328,7 @@ void startingScreen() // tampilan pada program
   system("pause");
   system("cls");
 }
+
 void menuBulan()
 {
   outLine();
@@ -330,6 +339,7 @@ void menuBulan()
   outMsg("  9 = September   10 = Oktober     11 = November 12 = Desember");
   outLine();
 }
+
 void ulangProgram()
 {
   int pilihan;
@@ -358,14 +368,6 @@ void ulangProgram()
     }
     inputPilihan("Masukkan perintah Kembali: ", &pilihan);
   } while (pilihan != 1 && pilihan != 2);
-}
-
-int main()
-{
-  startingScreen();
-  menuUtama();
-  system("pause");
-  ulangProgram();
 }
 
 void menuUtama()
