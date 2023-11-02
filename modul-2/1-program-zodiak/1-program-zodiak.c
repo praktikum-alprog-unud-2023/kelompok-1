@@ -11,7 +11,7 @@ int validasiInputInteger(char *string, int *integer);
 int validasiBulan(char *input, int *output);
 
 void menuUtama();
-void ulangprogram();
+void ulangProgram();
 void startingScreen();
 void head();
 void outLine();
