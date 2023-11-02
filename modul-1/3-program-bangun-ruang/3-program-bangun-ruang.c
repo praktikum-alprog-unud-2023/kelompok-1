@@ -241,7 +241,7 @@ void startingScreen() // tampilan head pada program
   outLine();
   outLine();
   outMsg("");
-  outMsg("%s", namaProgram);
+  outMsg("PROGRAM MENGHITUNG VOLUME DAN LUAS PERMUKAAN BANGUN RUANG");
   outMsg("");
   outLine();
   outLine();
@@ -273,7 +273,7 @@ void head() // tampilan head pada program
 {
   system("cls");
   outLine();
-  outMsg("%s", namaProgram);
+  outMsg("Program Menghitung Volume dan Luas Permukaan Bangun Ruang");
   outLine();
 }
 
