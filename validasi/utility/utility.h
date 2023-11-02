@@ -16,6 +16,7 @@ void menuUtama();
 void endMsg();
 void inputThisInt(char *inputText, int *inputVariable);
 void inputThisDouble(char *inputText, double *inputVariable);
+void inputThisAlpha(char *inputText, char *inputVariable);
 void startingScreen();
 void head();
 void outLine();
@@ -26,6 +27,7 @@ void pauseMsg();
 // Validasi input
 int validateInputInteger(char *string, int *integer);
 int validateInputDouble(char *string, double *floating_point);
+int validateInputAlpha(char *string, char *alpha_string);
 void input_binary_str(char *input_param);
 
 /*=================================================================================
@@ -386,6 +388,54 @@ int validateInputDouble(char *string, double *floating_point)
 }
 
 /*=================================================================================
+  Fungsi Untuk Memvalidasi Input Huruf
+  Library:
+      #include <ctype.h>
+      #include <string.h>
+      #include <stdlib.h>
+  =================================================================================
+*/
+int validateInputAlpha(char *string, char *text)
+{
+  int i = 0;
+  int containsText = 0;
+
+  while (isspace(string[i]))
+    i++;
+
+  int length = strlen(string);
+
+  if (length == i)
+    return 0;
+
+  int text_chars = 0;
+
+  while (i < length && string[i] != '\n')
+  {
+    if (isalpha(string[i]) || isspace(string[i])) // Check if the character is alphabetic or a space
+    {
+      text[text_chars] = string[i];
+      text_chars++;
+      i++;
+      if (isalpha(string[i]))
+        containsText = 1;
+    }
+    else
+    {
+      return 0; // Invalid character found (e.g., a number or special character)
+    }
+  }
+
+  // Put a null terminator at the end of the text to make it a proper string
+  text[text_chars] = '\0';
+
+  if (containsText)
+    return 1;
+  else
+    return 0; // No alphabetic characters found
+}
+
+/*=================================================================================
   Fungsi Untuk Menginputkan Bilangan Bulat dan Memvalidasinya
   Fungsi Pelengkap:
       validateInputInteger(param1, param2)
@@ -460,6 +510,39 @@ void inputThisDouble(char *inputText, double *inputVariable)
       pauseMsg();
     }
   } while (validateInputDouble(buffer, inputVariable) == 0 || *inputVariable < 0);
+}
+
+/*=================================================================================
+  Fungsi Untuk Menginputkan Huruf dan Memvalidasinya
+  Fungsi Pelengkap:
+      validateInputAlpha(param1, param2)
+      statusMsg("pesan");
+  Library:
+      #include <stdio.h>
+      #include <stdlib.h>
+  =================================================================================
+*/
+void inputThisAlpha(char *inputText, char *inputVariable)
+{
+  int parsed_correct = 1;
+  char buffer[BUFFER_SIZE];
+  do
+  {
+    // Input prompt
+    if (inputText != NULL)
+    {
+      printf(">>>>>>>>>>>>>>>>>>>>>>>    %s", inputText);
+    }
+
+    // Accept a line of string input from the user, store it into buffer
+    fgets(buffer, BUFFER_SIZE, stdin);
+
+    if (validateInputAlpha(buffer, inputVariable) == 0)
+    {
+      statusMsg("ERROR: ANDA TIDAK MEMASUKKAN HURUF ALFABET");
+      pauseMsg();
+    }
+  } while (validateInputAlpha(buffer, inputVariable) == 0);
 }
 
 /*=================================================================================
