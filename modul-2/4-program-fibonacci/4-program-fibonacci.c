@@ -38,19 +38,22 @@ int fibonacciRekursif(int n, int *sum) {
         *sum = 1;
         return 1;
     } else {
-        int prevSum;
-        int current = fibonacciRekursif(n - 1, &prevSum) + fibonacciRekursif(n - 2, sum);
-        *sum += current;
-        return current;
+        int prevSum1, prevSum2;
+        int fib1 = fibonacciRekursif(n - 1, &prevSum1);
+        int fib2 = fibonacciRekursif(n - 2, &prevSum2);
+        
+        *sum = fib1 + fib2 + prevSum1; 
+        return fib1 + fib2;
     }
 }
+
 
 int fibonacciIteratif(int n, int *sum) {
     if (n <= 0) {
         *sum = 0;
         return 0;
     }
-    int b1 = 0, b2 = 1, nextBil, current, sumFib = 0;
+    int b1 = 1, b2 = 1, nextBil, current, sumFib = 0;
 
     for (int i = 0; i < n; i++) {
         sumFib += b1;
@@ -60,9 +63,10 @@ int fibonacciIteratif(int n, int *sum) {
         b2 = nextBil;
     }
 
-    *sum = sumFib + current;
+    *sum = sumFib; 
     return current;
 }
+
 
 int validasiBil(int *bil)
 {
@@ -310,13 +314,11 @@ case 1:
     validasiBil(&n);
     outMsg("Bilangan Fibonacci: ");
 
-    for (int i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++) {
         int fib = fibonacciRekursif(i, &sum);
         printf("%d", fib);
 
-        if (i < n - 1)
-        {
+        if (i < n - 1) {
             printf(", ");
         }
     }
@@ -333,13 +335,11 @@ case 2:
     validasiBil(&n);
     outMsg("Bilangan Fibonacci: ");
 
-    for (int i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++) {
         int fib = fibonacciIteratif(i, &sum);
         printf("%d", fib);
 
-        if (i < n - 1)
-        {
+        if (i < n - 1) {
             printf(", ");
         }
     }
