@@ -18,7 +18,8 @@ void statusMsg(const char *);
 void pauseMsg();
 void inputInt(const char *inputText, int *inputVariable);
 void inputPilihan(const char *inputText, int *inputVariable);
-void fibonacci();
+int fibonacciRekursif(int n, int *sum);
+int fibonacciIteratif(int n, int *sum);
 void menuUtama();
 
 int main()
@@ -29,35 +30,38 @@ int main()
   ulangprogram();
 }
 
-void fibonacci()
-{
-  int jumlah;
-  int b1 = 0, b2 = 1;
-  int nextBil = b1 + b2;
-  head();
-  outLine();
-  outMsg("Deret Bilangan Fibonacci");
-  outLine();
-  outMsg("Masukkan banyak bilangan : ");
-  validasiBil(&jumlah);
-
-  if (jumlah <= 0)
-  {
-    statusMsg("ERROR: Masukkan bilangan positif.");
-  }
-  else
-  {
-    outMsg("Bilangan Fibonacci: ");
-    for (int i = 1; i <= jumlah; i++)
-    {
-      outMsg("%d", b1);
-      if (i < jumlah)
-        outMsg(", ");
-      nextBil = b1 + b2;
-      b1 = b2;
-      b2 = nextBil;
+int fibonacciRekursif(int n, int *sum) {
+    if (n <= 0) {
+        *sum = 0;
+        return 0;
+    } else if (n == 1) {
+        *sum = 1;
+        return 1;
+    } else {
+        int prevSum;
+        int current = fibonacciRekursif(n - 1, &prevSum) + fibonacciRekursif(n - 2, sum);
+        *sum += current;
+        return current;
     }
-  }
+}
+
+int fibonacciIteratif(int n, int *sum) {
+    if (n <= 0) {
+        *sum = 0;
+        return 0;
+    }
+    int b1 = 0, b2 = 1, nextBil, current, sumFib = 0;
+
+    for (int i = 0; i < n; i++) {
+        sumFib += b1;
+        current = b1;
+        nextBil = b1 + b2;
+        b1 = b2;
+        b2 = nextBil;
+    }
+
+    *sum = sumFib + current;
+    return current;
 }
 
 int validasiBil(int *bil)
@@ -244,6 +248,9 @@ void startingScreen()
   outMsg("MUHAMMAD DZIKRI DHANIAWAN               2305551146");
   outMsg("VINCENTIUS BONAVERREL DOMINICO          2305554176");
   outLine();
+  outMsg("PROGRAM STUDI TEKNOLOGI INFORMASI");
+  outMsg("FAKULTAS TEKNIK UNIVERSITAS UDAYANA");
+  outLine();
   system("pause");
 }
 
@@ -269,7 +276,7 @@ void ulangprogram()
   {
     if (pilihan == 1)
     {
-      main();
+      menuUtama();
     }
     else if (pilihan == 2)
     {
@@ -286,18 +293,64 @@ void ulangprogram()
 
 void menuUtama()
 {
-  outMsg(" 1 = Deret Bilangan Fibonacci");
+  outMsg(" 1 = Deret Bilangan Fibonacci Rekursif");
+  outMsg(" 2 = Deret Bilangan Fibonacci Iteratif");
   outMsg(" 0 = Keluar");
   outLine();
   inputPilihan("Masukkan pilihanmu : ", &pilihan);
 
   switch (pilihan)
   {
-  case 1:
-    fibonacci();
+case 1:
+{
+    int n, sum = 0;
+    outMsg("Deret Bilangan Fibonacci Rekursif");
+    outLine();
+    outMsg("Masukkan jumlah bilangan dalam deret Fibonacci: ");
+    validasiBil(&n);
+    outMsg("Bilangan Fibonacci: ");
+
+    for (int i = 0; i < n; i++)
+    {
+        int fib = fibonacciRekursif(i, &sum);
+        printf("%d", fib);
+
+        if (i < n - 1)
+        {
+            printf(", ");
+        }
+    }
+
+    printf("\nJumlah dari deret Fibonacci adalah: %d \n", sum);
     break;
+}
+case 2:
+{
+    int n, sum = 0;
+    outMsg("Deret Bilangan Fibonacci Iteratif");
+    outLine();
+    outMsg("Masukkan jumlah bilangan dalam deret Fibonacci: ");
+    validasiBil(&n);
+    outMsg("Bilangan Fibonacci: ");
+
+    for (int i = 0; i < n; i++)
+    {
+        int fib = fibonacciIteratif(i, &sum);
+        printf("%d", fib);
+
+        if (i < n - 1)
+        {
+            printf(", ");
+        }
+    }
+
+    printf("\nJumlah dari deret Fibonacci adalah : %d \n", sum);
+    break;
+}
   case 0:
-    printf("Terima Kasih Sudah Menggunakan Program Ini :)\n");
+    outLine();
+    outMsg("Terima Kasih Sudah Menggunakan Program Ini :)");
+    outLine();
     exit(0);
     break;
   default:
