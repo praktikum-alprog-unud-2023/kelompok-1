@@ -30,6 +30,7 @@ int validateInputDouble(char *string, double *floating_point);
 int validateInputAlpha(char *string, char *alpha_string);
 void input_binary_str(char *input_param);
 
+
 /*=================================================================================
   Tampilan Ketika Program Pertama Kali Dibuka
   Prosedur Pelengkap:
@@ -44,11 +45,7 @@ void startingScreen()
   outLine();
   outLine();
   outMsg("");
-<<<<<<< HEAD
-  outMsg("Program Nilai Akhir");
-=======
   outMsg("%s", namaProgram);
->>>>>>> 55418aacdeff305ac40576604f019fa37ce696d6
   outMsg("");
   outLine();
   outLine();
@@ -84,11 +81,7 @@ void head() // tampilan head pada program
 {
   system("cls");
   outLine();
-<<<<<<< HEAD
-  outMsg("Program Nilai Akhir");
-=======
   outMsg("%s", namaProgram);
->>>>>>> 55418aacdeff305ac40576604f019fa37ce696d6
   outLine();
 }
 
@@ -244,12 +237,7 @@ void endMsg() // prosedur menampilkan status
   {
     if (pilihan == 1)
     {
-<<<<<<< HEAD
       main();
-=======
-      // arahkan program kembali ke menu utama
-      menuUtama();
->>>>>>> 55418aacdeff305ac40576604f019fa37ce696d6
     }
     else if (pilihan == 2)
     {
