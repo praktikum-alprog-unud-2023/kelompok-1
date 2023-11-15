@@ -2,65 +2,14 @@
 /* Menghitung Volume dan Luas Permukaan Bangun Ruang */
 //***************************************************//
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdarg.h>
-#include <ctype.h>
-#include <math.h>
-// Konstanta untuk ukuran buffer
-#define BUFFER_SIZE 4096
-
-// Deklarasi variabel global
-int pilihan;
-
-// Deklarasi daftar bentuk bangun ruang
-char daftarBangunRuang[5][50] = {
-    "Tabung                    \0",
-    "Bola                      \0",
-    "Limas Segiempat           \0",
-    "Prisma Segitiga           \0",
-    "Kerucut                   \0"};
-
-// Prosedur utilitas
-void endMsg();
-void inputThisInt(char *inputText, int *inputVariable);
-void inputThisDouble(char *inputText, double *inputVariable);
-void startingScreen();
-void head();
-void outLine();
-void outMsg(const char *format, ...);
-void statusMsg(char *);
-void pauseMsg();
-
-// Validasi input
-int validateInputInteger(char *string, int *integer);
-int validateInputDouble(char *string, double *floating_point);
-
-// Deklarasi menu
-void menuUtama();
-void menuTabung();
-void menuBola();
-void menuLimasSegiempat();
-void menuPrismaSegitiga();
-void menuKerucut();
-
-// Fungsi rumus untuk perhitungan
-double tabungVolume(double, double);
-double tabungLuasPermukaan(double, double);
-double bolaVolume(double);
-double bolaLuasPermukaan(double);
-double limasSegiempatVolume();
-double limasSegiempatLuasPermukaan();
-double prismaSegitigaVolume();
-double prismaSegitigaLuasPermukaan();
-double kerucutVolume();
-double kerucutLuasPermukaan();
 
 int main()
 {
   startingScreen();
   menuUtama();
   return 0;
+<<<<<<< HEAD
+=======
 }
 
 // validator
@@ -573,4 +522,5 @@ double kerucutVolume(double luasAlas, double tinggi)
 double kerucutLuasPermukaan(double luasAlas, double luasSegitiga1, double luasSegitiga2, double luasSegitiga3, double luasSegitiga4)
 {
   return luasAlas + luasSegitiga1 + luasSegitiga2 + luasSegitiga3 + luasSegitiga4;
+>>>>>>> 55418aacdeff305ac40576604f019fa37ce696d6
 }
