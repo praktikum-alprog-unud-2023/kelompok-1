@@ -16,6 +16,7 @@ void outMsg(const char *format, ...);
 void statusMsg(char *);
 void inputMatriks();
 void inputInteger(char *message, int *integer);
+void inputPilihan(char *message, int *integer);
 int rows, cols;
 
 void clearInputBuffer()
@@ -34,51 +35,63 @@ int main()
   ulangProgram();
 }
 
-void inputInteger(char *message, int *integer)
+void inputInteger(char *inputText, int *inputVariable)
 {
-  char input[BUFFER_SIZE];
-  int isValid = 0;
-
-  while (!isValid)
+  int parsed_correct = 1;
+  char buffer[BUFFER_SIZE];
+  do
   {
-    printf("%s", message);
-    fgets(input, sizeof(input), stdin);
-    input[strcspn(input, "\n")] = '\0';
-
-    if (input[0] == '\0')
+    // input
+    if (inputText != NULL)
     {
-      statusMsg("Input tidak boleh kosong. Masukkan angka positif.");
+      printf(">>>   %s", inputText);
     }
-    else
-    {
-      int isValidInput = 1;
-      for (int i = 0; input[i] != '\0'; i++)
-      {
-        if (!isdigit(input[i]))
-        {
-          isValidInput = 0;
-          break;
-        }
-      }
 
-      if (isValidInput)
-      {
-        *integer = atoi(input);
-        if (*integer > 0)
-        {
-          isValid = 1;
-        }
-        else
-        {
-          statusMsg("Input harus menjadi angka positif.");
-        }
-      }
-      else
-      {
-        statusMsg("Input tidak valid. Masukkan angka positif.");
-      }
+    // accept a line of string input from the user, store it into buffer
+
+    fgets(buffer, BUFFER_SIZE, stdin);
+
+    if (validasiInputInteger(buffer, inputVariable) == 0)
+    {
+      statusMsg("ERROR: ANDA TIDAK MEMASUKKAN NOMOR PERINTAH");
     }
-  }
+
+    if (*inputVariable <= 0)
+    {
+      statusMsg("ERROR: INPUT TIDAK VALID");
+    }
+  } while (validasiInputInteger(buffer, inputVariable) == 0 || *inputVariable <= 0);
+}
+
+void inputPilihan(char *inputText, int *inputVariable)
+{
+  int parsed_correct = 1;
+  char buffer[BUFFER_SIZE];
+  do
+  {
+    // input
+    if (inputText != NULL)
+    {
+      printf(">>>   %s", inputText);
+    }
+
+    // accept a line of string input from the user, store it into buffer
+
+    fgets(buffer, BUFFER_SIZE, stdin);
+
+    if (validasiInputInteger(buffer, inputVariable) == 0)
+    {
+      statusMsg("ERROR: ANDA TIDAK MEMASUKKAN NOMOR PERINTAH");
+    }
+    if (*inputVariable <= 0)
+    {
+      statusMsg("ERROR: INPUT TIDAK VALID");
+    }
+    if (*inputVariable > 3)
+    {
+      statusMsg("ERROR: INPUT TIDAK VALID");
+    }
+  } while (validasiInputInteger(buffer, inputVariable) == 0 || *inputVariable <= 0 || *inputVariable > 3);
 }
 
 int validasiInputInteger(char *string, int *integer)
@@ -237,6 +250,7 @@ void startingScreen() // tampilan pada program
   outMsg("PROGRAM OPERASI MATEMATIKA MATRIKS");
   outMsg("");
   outLine();
+  outLine();
   outMsg("KELOMPOK 1");
   outLine();
   outMsg("ANGGOTA:");
@@ -248,9 +262,17 @@ void startingScreen() // tampilan pada program
   outMsg("MUHAMMAD DZIKRI DHANIAWAN               2305551146");
   outMsg("VINCENTIUS BONAVERREL DOMINICO          2305554176");
   outLine();
+  outLine();
+  outMsg("PROGAM STUDI TEKNOLOGI INFORMASI");
+  outMsg("FAKULTAS TEKNIK");
+  outMsg("UNIVERSITAS UDAYANA");
+  outMsg("2023");
+  outLine();
+  outLine();
   system("pause");
   system("cls");
 }
+
 void menuMatriks()
 {
   outLine();
@@ -272,7 +294,7 @@ void ulangProgram()
   outMsg("Apakah Anda Ingin Mengulang Program?");
   outMsg("< 1 > Ulangi            < 2 > Keluar");
   outLine();
-  inputInteger("Masukkan perintah : ", &pilihan);
+  inputPilihan("Masukkan perintah : ", &pilihan);
   do
   {
     if (pilihan == 1)
@@ -288,7 +310,7 @@ void ulangProgram()
     {
       statusMsg("ERROR: PERINTAH YANG ANDA PILIH TIDAK DITEMUKAN");
     }
-    inputInteger("Masukkan perintah Kembali: ", &pilihan);
+    inputPilihan("Masukkan perintah Kembali: ", &pilihan);
   } while (pilihan != 1 && pilihan != 2);
 }
 
@@ -322,7 +344,7 @@ void inputMatriks()
       int isValid = 0;
       while (!isValid)
       {
-        printf("Masukkan nilai baris %d kolom %d: ", i + 1, j + 1);
+        printf(">>>  Masukkan nilai baris %d kolom %d: ", i + 1, j + 1);
         scanf("%s", input);
         clearInputBuffer();
 
@@ -348,7 +370,7 @@ void inputMatriks()
       int isValid = 0;
       while (!isValid)
       {
-        printf("Masukkan nilai baris %d kolom %d: ", i + 1, j + 1);
+        printf(">>>  Masukkan nilai baris %d kolom %d: ", i + 1, j + 1);
         scanf("%s", input);
         clearInputBuffer();
 
@@ -374,7 +396,7 @@ void inputMatriks()
   outMsg("2. Perkalian Matriks");
   outMsg("3. Transpose Matriks");
   statusMsg("MASUKAN PILIHAN (1-3)");
-  inputInteger("masukan pilihan :", &choice); // DISINI ERROR TERUS TOT
+  inputPilihan("masukan pilihan : ", &choice);
 
   switch (choice)
   {
