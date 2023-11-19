@@ -35,10 +35,12 @@ void outline()
 {
   printf("\n--------------------------------------------------------------------\n");
 }
+
 void doubleline()
 {
   printf("\n====================================================================\n");
 }
+
 void outMsg(const char *format, ...)
 {
   int totalWidth = 68;
@@ -73,12 +75,14 @@ void outMsg(const char *format, ...)
 
   printf("\n");
 }
+
 void pauseMsg()
 {
   outline();
   outMsg("*Silahkan tekan enter untuk melanjutkan...*");
   outline();
 }
+
 void clear_terminal()
 {
   getchar();
@@ -119,6 +123,7 @@ int input_positive_int()
   else
     return output;
 }
+
 int input_valid_option()
 {
   char input[10];
@@ -156,6 +161,7 @@ int input_valid_option()
     return output;
   }
 }
+
 int input_only_option(const char *str)
 {
   for (int i = 0; str[i] != '\0'; i++)
@@ -167,6 +173,7 @@ int input_only_option(const char *str)
   }
   return 1;
 }
+
 double input_positive_double()
 {
   char input[11];
@@ -260,6 +267,7 @@ void starting_screen()
 
   clear_terminal();
 }
+
 int endMsg()
 {
   int opsi_end;
@@ -301,6 +309,7 @@ int endMsg()
 
   return opsi_end;
 }
+
 int option_screen()
 {
   int opsi_bd;
@@ -378,6 +387,7 @@ void menu_segitiga()
   clear_terminal();
   endMsg();
 }
+
 void menu_belahketupat()
 {
   double d1, d2;
@@ -409,6 +419,7 @@ void menu_belahketupat()
   clear_terminal();
   endMsg();
 }
+
 void menu_jajargenjang()
 {
   double alas, sisi, tinggi;
@@ -443,6 +454,7 @@ void menu_jajargenjang()
   clear_terminal();
   endMsg();
 }
+
 void menu_trapesium()
 {
   double sisi_atas, sisi_bawah, sisi_kanan, sisi_kiri, tinggi;
@@ -483,6 +495,7 @@ void menu_trapesium()
   clear_terminal();
   endMsg();
 }
+
 void menu_lingkaran()
 {
   double r;
@@ -511,6 +524,7 @@ void menu_lingkaran()
   clear_terminal();
   endMsg();
 }
+
 // pemilihan menu
 void option(int opsi_bd)
 {
@@ -540,6 +554,7 @@ double keliling_segitiga(double sisi_a, double sisi_b, double sisi_c)
   double keliling = sisi_a + sisi_b + sisi_c;
   return keliling;
 }
+
 double luas_segitiga(double sisi_a, double sisi_b, double sisi_c)
 {
   double s;
@@ -549,6 +564,7 @@ double luas_segitiga(double sisi_a, double sisi_b, double sisi_c)
   luas = sqrt(s * (s - sisi_a) * (s - sisi_b) * (s - sisi_c));
   return luas;
 }
+
 double keliling_belahketupat(double d1, double d2)
 {
   double keliling;
@@ -562,36 +578,43 @@ double keliling_belahketupat(double d1, double d2)
   }
   return keliling;
 }
+
 double luas_belahketupat(double d1, double d2)
 {
   double luas = (d1 * d2) / 2;
   return luas;
 }
+
 double keliling_jajargenjang(double alas, double sisi)
 {
   double keliling = 2 * (alas + sisi);
   return keliling;
 }
+
 double luas_jajargenjang(double alas, double tinggi)
 {
   double luas = alas * tinggi;
   return luas;
 }
+
 double keliling_trapesium(double sisi_atas, double sisi_bawah, double sisi_kanan, double sisi_kiri)
 {
   double keliling = sisi_atas + sisi_bawah + sisi_kanan + sisi_kiri;
   return keliling;
 }
+
 double luas_trapesium(double sisi_atas, double sisi_bawah, double tinggi)
 {
   double luas = (sisi_atas + sisi_bawah) * tinggi * 0.5;
   return luas;
 }
+
 double keliling_lingkaran(double r)
 {
   double keliling = 2 * M_PI * r;
   return keliling;
 }
+
 double luas_lingkaran(double r)
 {
   double luas = M_PI * pow(r, 2);
@@ -600,7 +623,8 @@ double luas_lingkaran(double r)
 
 int main()
 {
-  double sisi_a, sisi_b, sisi_c, d1, d2, alas, sisi, tinggi, sisi_atas, sisi_bawah, sisi_samping_kanan, sisi_samping_kiri, r;
+  double sisi_a,
+      sisi_b, sisi_c, d1, d2, alas, sisi, tinggi, sisi_atas, sisi_bawah, sisi_samping_kanan, sisi_samping_kiri, r;
   int opsi_bd;
   int repeat_program = 1;
 
