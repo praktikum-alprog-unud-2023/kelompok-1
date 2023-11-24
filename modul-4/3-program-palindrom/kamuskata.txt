@@ -1,2 +1,7 @@
-wiragunagantenk(15) : w=1 i=1 r=1 a=3 g=2 u=1 n=3 t=1 e=1 k=1 : Bukan Palindrom
-aca(3) : a=2 c=1 : Palindrom
+wiraguna(8) : w=1 i=1 r=1 a=2 g=1 u=1 n=1 : Bukan Palindrom
+malam(5) : m=2 a=2 l=1 : Palindrom
+senin(5) : s=1 e=1 n=2 i=1 : Bukan Palindrom
+mamalamam(9) : m=4 a=4 l=1 : Palindrom
+damnrighr(9) : d=1 a=1 m=1 n=1 r=2 i=1 g=1 h=1 : Bukan Palindrom
+mknknkm(7) : m=2 k=3 n=2 : Palindrom
+bab(3) : b=2 a=1 : Palindrom

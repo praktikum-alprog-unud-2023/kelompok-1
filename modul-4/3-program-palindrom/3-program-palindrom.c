@@ -254,16 +254,17 @@ int kompirasi(const void *a, const void *b)
     // Urutkan berdasarkan urutan pertama kali muncul
     return isiA->kataPertama - isiB->kataPertama;
 }
-bool containsDigits(const char *str)
+bool validasiHuruf(const char *str)
 {
     while (*str)
     {
-        if (isdigit(*str))
+
+        if (!(*str >= 'A' && *str <= 'Z' || *str >= 'a' && *str <= 'z'))
         {
             return true;
         }
         str++;
-    }
+    } // Selain kondisi yang di atas maka inputan salah
     return false;
 }
 
@@ -279,9 +280,9 @@ int inputPalindrome()
         printf(">>>   Masukkan kata: ");
         scanf("%s", kataUtama);
 
-        if (containsDigits(kataUtama))
+        if (validasiHuruf(kataUtama))
         {
-            statusMsg("Input tidak valid. Mohon masukkan kata tanpa angka.");
+            statusMsg("Input tidak valid.");
         }
         else
         {
@@ -339,7 +340,7 @@ int inputPalindrome()
 
     printf(": %s\n", P ? "Palindrom" : "Bukan Palindrom");
 
-    // buat dan  buka file
+    // buat dan buka file
     FILE *file = fopen("kamuskata.txt", "a");
     if (file == NULL)
     {

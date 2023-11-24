@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "d:/kelompok-1/modul-3/2-program-operasi-matriks",
-      "program": "d:/kelompok-1/modul-3/2-program-operasi-matriks/build/Debug/outDebug",
+      "cwd": "d:/kelompok-1/modul-4/3-program-palindrom",
+      "program": "d:/kelompok-1/modul-4/3-program-palindrom/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
