@@ -1,5 +1,3 @@
-
-
 #include "../../validasi/utility/utility.h"
 char namaProgram[] = "PROGRAM MENGHITUNG ANGSURAN";
 
@@ -20,6 +18,13 @@ void menuUtama()
   inputThisDouble("Pokok Pinjaman                 = ", &pokokPinjaman);
   inputThisDouble("Besar Bunga dalam setahun (%)  = ", &bunga);
   inputThisInt("Lama Pinjaman dalam Bulan      = ", &bulan);
+
+  // Validasi Bilangan Negatif :3
+  if (pokokPinjaman < 0 || bunga < 0 || bulan < 0)
+  {
+    printf("Tolong masukkan bilangan non-negatif.\n");
+    return;
+  }
 
   double angsuranPokok = pokokPinjaman / bulan;
   double bungaBulanY, totalBunga, totalAngsuran = 0;
