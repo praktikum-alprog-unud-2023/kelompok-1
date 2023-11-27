@@ -6,7 +6,6 @@ void head();
 void outLine();
 void endMsg();
 
-// int ukuran;
 // Fungsi validasi
 int validasi()
 {
@@ -160,6 +159,7 @@ int main()
   outLine();
   printf("waktu yang dibutuhkan bubble Sort Pointer (size%d) : %f detik\n", size, elapsed_time1);
   outLine();
+
   if (elapsed_time > elapsed_time1)
   {
     printf("Waktu dari penggunaan Bubble Sort Pointer lebih cepat.\n");
