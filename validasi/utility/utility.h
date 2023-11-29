@@ -44,7 +44,15 @@ void startingScreen()
   outLine();
   outLine();
   outMsg("");
+<<<<<<< HEAD
+  outMsg("Program Bubble Sort");
+=======
+<<<<<<< HEAD
+  outMsg("Program Nilai Akhir");
+=======
   outMsg("%s", namaProgram);
+>>>>>>> 55418aacdeff305ac40576604f019fa37ce696d6
+>>>>>>> af4290d1489c807ce0f06f5cacb29ffbed00db62
   outMsg("");
   outLine();
   outLine();
@@ -80,7 +88,15 @@ void head() // tampilan head pada program
 {
   system("cls");
   outLine();
+<<<<<<< HEAD
+  outMsg("Program Bubble Sort");
+=======
+<<<<<<< HEAD
+  outMsg("Program Nilai Akhir");
+=======
   outMsg("%s", namaProgram);
+>>>>>>> 55418aacdeff305ac40576604f019fa37ce696d6
+>>>>>>> af4290d1489c807ce0f06f5cacb29ffbed00db62
   outLine();
 }
 
@@ -236,8 +252,16 @@ void endMsg() // prosedur menampilkan status
   {
     if (pilihan == 1)
     {
+<<<<<<< HEAD
+      main();
+=======
+<<<<<<< HEAD
+      main();
+=======
       // arahkan program kembali ke menu utama
       menuUtama();
+>>>>>>> 55418aacdeff305ac40576604f019fa37ce696d6
+>>>>>>> af4290d1489c807ce0f06f5cacb29ffbed00db62
     }
     else if (pilihan == 2)
     {
