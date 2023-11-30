@@ -8,13 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-<<<<<<< HEAD
-      "cwd": ".",
-      "program": "build/Debug/outDebug",
-=======
       "cwd": "d:/kelompok-1/modul-3/2-program-operasi-matriks",
       "program": "d:/kelompok-1/modul-3/2-program-operasi-matriks/build/Debug/outDebug",
->>>>>>> wira
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
