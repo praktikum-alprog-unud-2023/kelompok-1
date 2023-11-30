@@ -241,7 +241,7 @@ void inputPilihan(char *inputText, int *inputVariable)
 
     if (*inputVariable < 0)
     {
-      statusMsg("ERROR: TANGGAL YANG DIMASUKKAN BUKAN BILANGAN POSITIF");
+      statusMsg("ERROR: BILANGAN YANG DIMASUKKAN BUKAN BILANGAN POSITIF");
     }
   } while (validasiInputInteger(buffer, inputVariable) == 0 || *inputVariable < 0);
 }
