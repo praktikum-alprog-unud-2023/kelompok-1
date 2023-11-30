@@ -2,3 +2,7 @@ wiragunaGanteng(15) : w=1 i=1 r=1 a=3 g=3 u=1 n=3 t=1 e=1 : Bukan Palindrom
 malam(5) : m=2 a=2 l=1 : Palindrom
 kamus(5) : k=1 a=1 m=1 u=1 s=1 : Bukan Palindrom
 ayam(4) : a=2 y=1 m=1 : Bukan Palindrom
+bebek(5) : b=2 e=2 k=1 : Bukan Palindrom
+ayam(4) : a=2 y=1 m=1 : Bukan Palindrom
+ayam(4) : a=2 y=1 m=1 : Bukan Palindrom
+ayam(4) : a=2 y=1 m=1 : Bukan Palindrom

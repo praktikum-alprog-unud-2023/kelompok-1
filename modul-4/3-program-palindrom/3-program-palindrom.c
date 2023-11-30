@@ -89,7 +89,7 @@ void head() // tampilan head pada program
 // tampilan program
 void startingScreen() // tampilan pada program
 {
-   
+
     outLine();
     outMsg("");
     outMsg("PROGRAM PALINDROM");
@@ -155,12 +155,12 @@ void tampilkanBolakBalik(char *kata)
     outLine();
     printf("Kata Asli : %s", kata);
     printf("\nkata dibalik : ");
-    
+
     for (int i = panjang - 1; i >= 0; i--)
     {
         printf("%c", kata[i]);
     }
-    
+
     printf("\n");
 }
 // validasi
@@ -286,8 +286,6 @@ bool validasiHuruf(const char *str)
     return false;
 }
 
-
-
 int inputPalindrome()
 {
     char kataUtama[MAX_WORD_LENGTH];
@@ -351,7 +349,7 @@ int inputPalindrome()
     qsort(huruf, A, sizeof(Isi), kompirasi);
 
     // Menampilkan output sesuai dengan format yang diinginkan
-tampilkanBolakBalik(kataUtama);
+    tampilkanBolakBalik(kataUtama);
     printf("%s(%d) : ", kataUtama, panjangKata);
 
     for (int i = 0; i < A; i++)
@@ -362,8 +360,6 @@ tampilkanBolakBalik(kataUtama);
     printf(": %s\n", P ? "Palindrom" : "Bukan Palindrom");
 
     statusMsg("Data dimasukan ke kamuskata.txt");
-
-
 
     // buat dan buka file
     FILE *file = fopen("kamuskata.txt", "a");
