@@ -45,7 +45,7 @@ void startingScreen()
   outLine();
   outLine();
   outMsg("");
-  outMsg("%s", namaProgram);
+  outMsg("Program Nilai Akhir");
   outMsg("");
   outLine();
   outLine();

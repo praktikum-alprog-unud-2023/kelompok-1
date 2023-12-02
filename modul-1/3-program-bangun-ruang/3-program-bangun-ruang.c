@@ -10,6 +10,9 @@ int main()
   return 0;
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
+>>>>>>> af4290d1489c807ce0f06f5cacb29ffbed00db62
 }
 
 // validator
@@ -522,5 +525,8 @@ double kerucutVolume(double luasAlas, double tinggi)
 double kerucutLuasPermukaan(double luasAlas, double luasSegitiga1, double luasSegitiga2, double luasSegitiga3, double luasSegitiga4)
 {
   return luasAlas + luasSegitiga1 + luasSegitiga2 + luasSegitiga3 + luasSegitiga4;
+<<<<<<< HEAD
+=======
 >>>>>>> 55418aacdeff305ac40576604f019fa37ce696d6
+>>>>>>> af4290d1489c807ce0f06f5cacb29ffbed00db62
 }
