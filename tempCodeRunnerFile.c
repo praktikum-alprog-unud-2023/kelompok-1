@@ -1,163 +1,135 @@
-#include "../validasi/utility/utility.h"
+#include "../../validasi/utility/utility.h"
 
-char namaProgram[] = "CAESAR CIPHER";
+struct Mahasiswa {
+    unsigned long long NIM;
+    char Nama[100];
+};
 
-void encryptText(char text[], int shift);
-void decryptText(char text[], int shift);
-void outputText(const char *format, ...);
+void tambahData(struct Mahasiswa data, FILE *file);
+void cariData(unsigned long long nim, FILE *file);
+void muatData(struct Mahasiswa *data, int *size, FILE *file);
+void cetakData(const struct Mahasiswa *data, int size, FILE *file);
 
+int main() {
+    FILE *file;
+    struct Mahasiswa data[100];
+    int size = 0;
 
-void input_binary_str(char *input_param)
-{
-  char input[100];
-  int i = 0, error = 0;
-
-  fflush(stdin);
-  fgets(input, sizeof(input), stdin);
-
-  if (input[0] == '\0')
-    error = 1;
-
-  while (input[i] != '\0' && input[i] != '\n')
-  {
-    if (strchr("01", input[i]))
-    {
-      i++;
+    // Buka file atau buat file baru jika belum ada
+    file = fopen("data_mahasiswa.txt", "a+");
+    if (file == NULL) {
+        printf("Gagal membuka atau membuat file.\n");
+        return 1;
     }
-    else
-    {
-      error = 1;
-      break;
-    }
-  }
 
-  if (error == 1)
-  {
-    printf("\nInvalid binary number!");
-    printf("\nSilahkan Masukan Angka Kembali : ");
-    return input_binary_str(input_param);
-  }
-  input[i] = '\0';
-  strcpy(input_param, input);
+    // Muat data dari file
+    muatData(data, &size, file);
+
+    // Menu utama
+    int choice;
+    do {
+        printf("\nMenu:\n");
+        printf("1. Tambah Data Mahasiswa\n");
+        printf("2. Cari Data Mahasiswa\n");
+        printf("3. Cetak Data Mahasiswa\n");
+        printf("4. Keluar\n");
+        printf("Pilih menu (1/2/3/4): ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1: {
+                struct Mahasiswa mahasiswa;
+                printf("Masukkan NIM: ");
+                scanf("%llu", &mahasiswa.NIM);
+
+                // Cek apakah NIM sudah ada
+                int found = 0;
+                for (int i = 0; i < size; i++) {
+                    if (data[i].NIM == mahasiswa.NIM) {
+                        found = 1;
+                        break;
+                    }
+                }
+
+                if (found) {
+                    printf("Data dengan NIM tersebut sudah ada.\n");
+                } else {
+                    printf("Masukkan Nama: ");
+                    scanf(" %[^\n]s", mahasiswa.Nama);
+
+                    // Tambahkan data ke dalam array
+                    data[size] = mahasiswa;
+                    size++;
+
+                    // Tambahkan data ke dalam file
+                    tambahData(mahasiswa, file);
+
+                    printf("Data berhasil ditambahkan.\n");
+                }
+                break;
+            }
+            case 2: {
+                unsigned long long nim;
+                printf("Masukkan NIM yang ingin dicari: ");
+                scanf("%llu", &nim);
+
+                // Cari data berdasarkan NIM
+                cariData(nim, file);
+                break;
+            }
+            case 3:
+                // Cetak data
+                cetakData(data, size, file);
+                break;
+            case 4:
+                printf("Program Selesai.\n");
+                break;
+            default:
+                printf("Pilihan tidak valid.\n");
+        }
+    } while (choice != 4);
+
+    // Tutup file
+    fclose(file);
+
+    return 0;
 }
 
-void menuUtama()
-{
-  char sourceText[2046];
-  int shift;
-  head();
-
-  // menu
-  outMsg("Pilih prosedur yang ingin dilakukan dilakukan:");
-  for (int i = 0; i < 2; i++)
-  {
-    outMsg("< %d >  %s", i + 1, daftarMenu[i]);
-  }
-  outMsg("< 0 >  keluar                    \0");
-  outLine();
-  inputThisInt("masukkan pilihanmu: ", &pilihan);
-
-  switch (pilihan)
-  {
-  case 1:
-    head();
-    inputThisAlpha("masukkan text: ", sourceText);
-    inputThisInt("masukkan shift: ", &shift);
-    encryptText(sourceText, shift);
-
-    head();
-    outMsg("%s", sourceText);
-
-    break;
-  case 2:
-    head();
-    inputThisAlpha("masukkan text: ", sourceText);
-    inputThisInt("masukkan shift: ", &shift);
-    decryptText(sourceText, shift);
-
-    head();
-    outMsg("%s", sourceText);
-
-    break;
-
-  case 0:
-    break;
-
-  default:
-    statusMsg("ERROR: PERINTAH YANG ANDA PILIH TIDAK DITEMUKAN");
-    pilihan = 0;
-    pauseMsg();
-    menuUtama();
-    break;
-  }
-
-  endMsg();
+// Fungsi untuk menambahkan data ke dalam file
+void tambahData(struct Mahasiswa data, FILE *file) {
+    fprintf(file, "%llu,%s\n", data.NIM, data.Nama);
 }
 
-char daftarMenu[2][50] = {
-    "Enkripsi                  \0",
-    "Dekripsi                  \0"};
+// Fungsi untuk mencari data berdasarkan NIM
+void cariData(unsigned long long nim, FILE *file) {
+    rewind(file); // Kembalikan posisi file ke awal
+    struct Mahasiswa mahasiswa;
 
-int main()
-{
-  startingScreen();
-  menuUtama();
-  return 0;
+    while (fscanf(file, "%llu,%[^\n]\n", &mahasiswa.NIM, mahasiswa.Nama) != EOF) {
+        if (mahasiswa.NIM == nim) {
+            printf("Data ditemukan:\n");
+            printf("NIM: %llu\n", mahasiswa.NIM);
+            printf("Nama: %s\n", mahasiswa.Nama);
+            return;
+        }
+    }
+
+    printf("Data tidak ditemukan.\n");
 }
 
-//Prosedur Enkripsi
-void encryptText(char text[], int shift)
-{
-  for (int i = 0; text[i] != '\0'; i++)
-  {
-    char ch = text[i];
-    if (ch >= 'a' && ch <= 'z')
-    {
-      text[i] = (char)(((ch - 'a' + shift) % 26) + 'A');
+// Fungsi untuk memuat data dari file
+void muatData(struct Mahasiswa *data, int *size, FILE *file) {
+    rewind(file); // Kembalikan posisi file ke awal
+
+    while (fscanf(file, "%llu,%[^\n]\n", &data[*size].NIM, data[*size].Nama) != EOF) {
+        (*size)++;
     }
-    else if (ch >= 'A' && ch <= 'Z')
-    {
-      text[i] = (char)(((ch - 'A' + shift) % 26) + 'A');
-    }
-  }
 }
 
-//Prosedur Dekripsi
-void decryptText(char message[], int shift)
-{
-  for (int i = 0; message[i] != '\0'; i++)
-  {
-    char ch = message[i];
-    if (ch >= 'a' && ch <= 'z')
-    {
-      message[i] = (char)(((ch - 'a' - shift + 26) % 26) + 'a');
+// Fungsi untuk mencetak data ke dalam file
+void cetakData(const struct Mahasiswa *data, int size, FILE *file) {
+    printf("\nData Mahasiswa:\n");
+    for (int i = 0; i < size; i++) {
+        printf("NIM: %llu, Nama: %s\n", data[i].NIM, data[i].Nama);
     }
-    else if (ch >= 'A' && ch <= 'Z')
-    {
-      message[i] = (char)(((ch - 'A' - shift + 26) % 26) + 'A');
-    }
-  }
-}
-
-void outputText(const char *format, ...)
-{
-  va_list args;
-  va_start(args, format);
-
-  // Define a maximum segment size
-  int segmentSize = 64;
-
-  // Process the input message
-  char outputMessage[2048]; // Increase the buffer size to avoid buffer overflow
-  int outputLength = vsnprintf(outputMessage, 2048, format, args);
-
-  va_end(args);
-
-  for (int i = 0; i < outputLength; i += segmentSize)
-  {
-    int remainingChars = outputLength - i;
-    int charsToPrint = (remainingChars < segmentSize) ? remainingChars : segmentSize;
-
-    outMsg("%.*s", charsToPrint, outputMessage + i);
-  }
 }
