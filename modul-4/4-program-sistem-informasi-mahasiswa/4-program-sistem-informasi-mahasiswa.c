@@ -1,124 +1,312 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "../../validasi/utility/utility.h"
 
-struct Mahasiswa {
-    unsigned long long NIM;
-    char Nama[101];
+char namaProgram[] = "Sistem Informasi Data Mahasiswa";
+int pilihan;
+struct Mahasiswa
+{
+    char nim[BUFFER_SIZE];
+    char nama[BUFFER_SIZE];
 };
-char namaProgram[100] = "Program Informasi Data Mahasiswa";
-void tambahData(struct Mahasiswa data, FILE *file);
-void cariData(unsigned long long nim, FILE *file);
-void muatData(struct Mahasiswa *data, int *size, FILE *file);
-void cetakData(const struct Mahasiswa *data, int size, FILE *file);
-int main() {
-    FILE *file;
-    struct Mahasiswa data[100];
-    int size = 0;
+void inputThisLLInt();
+void tambahData();
+void tampilkanData();
+void cariData();
+void updateData();
+void simpanKeFile(struct Mahasiswa mahasiswa);
+int cekDuplikasiNIM(char nim[]);
+void thankYouAndExit() {
+    outLine();
+    outMsg("TERIMAKASIH TELAH MENGGUNAKAN PROGRAM INI");
+}
+int validateInputLLInt(const char *input, long long int *output);
+void clearInputBuffer();
+void inputThisLLInt(const char *inputText, long long int *inputVariable)
+{
+    char buffer[BUFFER_SIZE];
+    int parsed_correct = 0;
 
-    file = fopen("data_mahasiswa.txt", "a+");
-    if (file == NULL) {
-        printf("Gagal membuka atau membuat file.\n");
-        return 1;
+    do
+    {
+        if (inputText != NULL)
+        {
+            printf(">>>>>>>>>>>>>>>>>>>>>>>    %s", inputText);
+        }
+
+        fgets(buffer, BUFFER_SIZE, stdin);
+
+        parsed_correct = validateInputLLInt(buffer, inputVariable);
+
+        if (!parsed_correct)
+        {
+            statusMsg("ERROR: Masukkan nomor perintah yang valid.");
+        }
+
+        if (*inputVariable <= 0)
+        {
+            statusMsg("ERROR: Masukkan bilangan positif.");
+        }
+
+    } while (!parsed_correct || *inputVariable <= 0);
+}
+int validateInputLLInt(const char *input, long long int *output)
+{
+    char *endptr;
+    *output = strtoll(input, &endptr, 10);
+
+    return (*endptr == '\n' || *endptr == '\0');
+}
+void clearInputBuffer()
+{
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
+}
+
+int main()
+{
+    startingScreen();
+    menuUtama();
+    return 0;
+}
+void menuUtama()
+{
+    head();
+    outMsg("Pilih operasi yang ingin Anda lakukan:");
+    outMsg("< 1 > Tambah Data Mahasiswa");
+    outMsg("< 2 > Tampilkan Data Mahasiswa");
+    outMsg("< 3 > Cari Data Mahasiswa");
+    outMsg("< 4 > Update Data Mahasiswa");
+    outMsg("< 5 > Keluar");
+
+    inputThisInt("Masukkan pilihan Anda: ", &pilihan);
+
+    switch (pilihan)
+    {
+    case 1:
+        tambahData();
+        break;
+    case 2:
+        tampilkanData();
+        break;
+    case 3:
+        cariData();
+        break;
+    case 4:
+        updateData();
+        break;
+    case 5:
+        thankYouAndExit();
+        break;
+    default:
+        statusMsg("ERROR: Pilihan tidak valid.");
+        pauseMsg();
+        menuUtama();
+        break;
+    }
+}
+void tambahData()
+{
+    head();
+    struct Mahasiswa mahasiswa;
+
+    inputThisAlpha("Masukkan Nama Mahasiswa: ", mahasiswa.nama);
+    inputThisLLInt("Masukkan NIM Mahasiswa: ", mahasiswa.nim);
+
+    if (cekDuplikasiNIM(mahasiswa.nim))
+    {
+        statusMsg("ERROR: NIM sudah terdaftar.");
+        pauseMsg();
+        tambahData();
+        return;
     }
 
-    muatData(data, &size, file);
+    simpanKeFile(mahasiswa);
 
-    int choice;
-    do {
-        printf("\nMenu:\n");
-        printf("1. Tambah Data Mahasiswa\n");
-        printf("2. Cari Data Mahasiswa\n");
-        printf("3. Cetak Data Mahasiswa\n");
-        printf("4. Keluar\n");
-        printf("Pilih menu (1/2/3/4): ");
-        scanf("%d", &choice);
+    statusMsg("Data mahasiswa berhasil ditambahkan.");
+    pauseMsg();
 
-        switch (choice) {
-            case 1: {
-                struct Mahasiswa mahasiswa;
-                printf("Masukkan NIM: ");
-                scanf("%llu", &mahasiswa.NIM);
+    menuUtama();
+}
+void tampilkanData()
+{
+    head();
+    printf("Data Mahasiswa:\n");
 
-                int found = 0;
-                for (int i = 0; i < size; i++) {
-                    if (data[i].NIM == mahasiswa.NIM) {
-                        found = 1;
-                        break;    
-                    }
-                }
+    FILE *file = fopen("data_mahasiswa.txt", "r");
+    if (file == NULL)
+    {
+        statusMsg("ERROR: Gagal membuka file.");
+        pauseMsg();
+        menuUtama();
+        return;
+    }
 
-                if (found) {
-                    printf("Data dengan NIM tersebut sudah ada.\n");
-                } else {
-                    printf("Masukkan Nama: ");
-                    scanf(" %[^\n]s", mahasiswa.Nama);
+    struct Mahasiswa mahasiswa;
 
-                    data[size] = mahasiswa;
-                    size++;
-
-                    tambahData(mahasiswa, file);
-
-                    printf("Data berhasil ditambahkan.\n");
-                }
-                break;
-            }
-            case 2: {
-                unsigned long long nim;
-                printf("Masukkan NIM yang ingin dicari: ");
-                scanf("%llu", &nim);
-
-                cariData(nim, file);
-                break;
-            }
-            case 3:
-                cetakData(data, size, file);
-                break;
-            case 4:
-                printf("Program Selesai.\n");
-                break;
-            default:
-                printf("Pilihan tidak valid.\n");
-        }
-    } while (choice != 4);
+    int isEmpty = 1; 
+    while (fread(&mahasiswa, sizeof(struct Mahasiswa), 1, file) == 1)
+    {
+        isEmpty = 0;
+        outMsg("NIM: %s, Nama: %s", mahasiswa.nim, mahasiswa.nama);
+    }
 
     fclose(file);
 
-    return 0;
+    if (isEmpty)
+    {
+        statusMsg("Tidak ada data mahasiswa yang tersedia.");
+    }
+
+    pauseMsg();
+    menuUtama();
 }
-void tambahData(struct Mahasiswa data, FILE *file) {
-    fprintf(file, "%llu,%s\n", data.NIM, data.Nama);
-}
-void cariData(unsigned long long nim, FILE *file) {
-    rewind(file);
+
+void cariData()
+{
+    head();
+    char nimCari[BUFFER_SIZE];
+
+    inputThisInt("Masukkan NIM Mahasiswa yang ingin dicari: ", nimCari);
+
+    FILE *file = fopen("data_mahasiswa.txt", "r");
+    if (file == NULL)
+    {
+        statusMsg("ERROR: Gagal membuka file.");
+        pauseMsg();
+        menuUtama();
+        return;
+    }
+
     struct Mahasiswa mahasiswa;
 
-    while (fscanf(file, "%llu,%[^\n]%*c", &mahasiswa.NIM, mahasiswa.Nama) == 2) {
-        if (mahasiswa.NIM == nim) {
-            printf("Data ditemukan:\n");
-            printf("NIM: %llu\n", mahasiswa.NIM);
-            printf("Nama: %s\n", mahasiswa.Nama);
-            return;
+    int ditemukan = 0;
+    while (fread(&mahasiswa, sizeof(struct Mahasiswa), 1, file) == 1)
+    {
+        if (strcmp(mahasiswa.nim, nimCari) == 0)
+        {
+            outMsg("Data Mahasiswa ditemukan:");
+            outMsg("NIM: %s, Nama: %s", mahasiswa.nim, mahasiswa.nama);
+            ditemukan = 1;
+            break;
         }
     }
 
-    printf("Data tidak ditemukan.\n");
-}
-void muatData(struct Mahasiswa *data, int *size, FILE *file) {
-    rewind(file);
+    fclose(file);
 
-    while (fscanf(file, "%llu,%[^\n]%*c", &data[*size].NIM, data[*size].Nama) == 2) {
-        (*size)++;
+    if (!ditemukan)
+    {
+        statusMsg("Data Mahasiswa dengan NIM tersebut tidak ditemukan.");
     }
 
-    if (feof(file)) {
-        printf("Data berhasil dimuat.\n");
-    } else {
-        printf("Gagal membaca data dari file.\n");
-    }
+    pauseMsg();
+    menuUtama();
 }
-void cetakData(const struct Mahasiswa *data, int size, FILE *file) {
-    printf("\nData Mahasiswa:\n");
-    for (int i = 0; i < size; i++) {
-        printf("NIM: %llu, Nama: %s\n", data[i].NIM, data[i].Nama);
+void updateData()
+{
+    head();
+    char nimUpdate[BUFFER_SIZE];
+
+    inputThisAlpha("Masukkan NIM Mahasiswa yang ingin diupdate: ", nimUpdate);
+
+    FILE *file = fopen("data_mahasiswa.txt", "r");
+    if (file == NULL)
+    {
+        statusMsg("ERROR: Gagal membuka file.");
+        pauseMsg();
+        menuUtama();
+        return;
     }
+
+    struct Mahasiswa mahasiswa;
+    int ditemukan = 0;
+
+    // Mencari data berdasarkan NIM
+    while (fread(&mahasiswa, sizeof(struct Mahasiswa), 1, file) == 1)
+    {
+        if (strcmp(mahasiswa.nim, nimUpdate) == 0)
+        {
+            outMsg("Data Mahasiswa ditemukan:");
+            outMsg("NIM: %s, Nama: %s", mahasiswa.nim, mahasiswa.nama);
+            ditemukan = 1;
+
+            inputThisAlpha("Masukkan Nama Mahasiswa yang baru: ", mahasiswa.nama);
+
+            FILE *tempFile = fopen("temp_data_mahasiswa.txt", "a");
+            if (tempFile == NULL)
+            {
+                statusMsg("ERROR: Gagal membuka file sementara.");
+                fclose(file);
+                pauseMsg();
+                menuUtama();
+                return;
+            }
+
+            fwrite(&mahasiswa, sizeof(struct Mahasiswa), 1, tempFile);
+
+            fclose(tempFile);
+        }
+        else
+        {
+            FILE *tempFile = fopen("temp_data_mahasiswa.txt", "a");
+            if (tempFile == NULL)
+            {
+                statusMsg("ERROR: Gagal membuka file sementara.");
+                fclose(file);
+                pauseMsg();
+                menuUtama();
+                return;
+            }
+
+            fwrite(&mahasiswa, sizeof(struct Mahasiswa), 1, tempFile);
+
+            fclose(tempFile);
+        }
+    }
+
+    fclose(file);
+
+    if (!ditemukan)
+    {
+        statusMsg("Data Mahasiswa dengan NIM tersebut tidak ditemukan.");
+        pauseMsg();
+        menuUtama();
+        return;
+    }
+
+
+}
+int cekDuplikasiNIM(char nim[])
+{
+    FILE *file = fopen("data_mahasiswa.txt", "r");
+    if (file == NULL)
+    {
+        statusMsg("ERROR: Gagal membuka file.");
+        return 0;
+    }
+
+    struct Mahasiswa mahasiswa;
+    while (fread(&mahasiswa, sizeof(struct Mahasiswa), 1, file) == 1)
+    {
+        if (strcmp(mahasiswa.nim, nim) == 0)
+        {
+            fclose(file);
+            return 1;
+        }
+    }
+
+    fclose(file);
+    return 0;
+}
+void simpanKeFile(struct Mahasiswa mahasiswa)
+{
+    FILE *file = fopen("data_mahasiswa.txt", "a");
+    if (file == NULL)
+    {
+        statusMsg("ERROR: Gagal membuka file.");
+        return;
+    }
+
+    fwrite(&mahasiswa, sizeof(struct Mahasiswa), 1, file);
+
+    fclose(file);
 }
