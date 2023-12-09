@@ -1,5 +1,3 @@
-
-
 #include "../../validasi/utility/utility.h"
 char namaProgram[] = "PROGRAM MENGHITUNG ANGSURAN";
 

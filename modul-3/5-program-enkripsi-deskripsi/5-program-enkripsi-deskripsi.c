@@ -41,7 +41,7 @@ void endMsgthankyou()
         }
     } while (!exitLoop);
 }
-void menuUtama()
+void menuUtama() 
 {
     char sourceText[2046];
     int shift;
