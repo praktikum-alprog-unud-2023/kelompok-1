@@ -2,17 +2,65 @@
 /* Menghitung Volume dan Luas Permukaan Bangun Ruang */
 //***************************************************//
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdarg.h>
+#include <ctype.h>
+#include <math.h>
+// Konstanta untuk ukuran buffer
+#define BUFFER_SIZE 4096
+
+// Deklarasi variabel global
+int pilihan;
+
+// Deklarasi daftar bentuk bangun ruang
+char daftarBangunRuang[5][50] = {
+    "Tabung                    \0",
+    "Bola                      \0",
+    "Limas Segiempat           \0",
+    "Prisma Segitiga           \0",
+    "Kerucut                   \0"};
+
+// Prosedur utilitas
+void endMsg();
+void inputThisInt(char *inputText, int *inputVariable);
+void inputThisDouble(char *inputText, double *inputVariable);
+void startingScreen();
+void head();
+void outLine();
+void outMsg(const char *format, ...);
+void statusMsg(char *);
+void pauseMsg();
+
+// Validasi input
+int validateInputInteger(char *string, int *integer);
+int validateInputDouble(char *string, double *floating_point);
+
+// Deklarasi menu
+void menuUtama();
+void menuTabung();
+void menuBola();
+void menuLimasSegiempat();
+void menuPrismaSegitiga();
+void menuKerucut();
+
+// Fungsi rumus untuk perhitungan
+double tabungVolume(double, double);
+double tabungLuasPermukaan(double, double);
+double bolaVolume(double);
+double bolaLuasPermukaan(double);
+double limasSegiempatVolume();
+double limasSegiempatLuasPermukaan();
+double prismaSegitigaVolume();
+double prismaSegitigaLuasPermukaan();
+double kerucutVolume();
+double kerucutLuasPermukaan();
 
 int main()
 {
   startingScreen();
   menuUtama();
   return 0;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
->>>>>>> af4290d1489c807ce0f06f5cacb29ffbed00db62
 }
 
 // validator
@@ -191,11 +239,9 @@ void startingScreen() // tampilan head pada program
 {
   system("cls");
   outLine();
-  outLine();
   outMsg("");
-  outMsg("%s", namaProgram);
+  outMsg("PROGRAM BANGUN RUANG");
   outMsg("");
-  outLine();
   outLine();
   outMsg("KELOMPOK 1");
   outLine();
@@ -208,15 +254,11 @@ void startingScreen() // tampilan head pada program
   outMsg("MUHAMMAD DZIKRI DHANIAWAN               2305551146");
   outMsg("VINCENTIUS BONAVERREL DOMINICO          2305554176");
   outLine();
-  outLine();
   outMsg("PROGAM STUDI TEKNOLOGI INFORMASI");
   outMsg("FAKULTAS TEKNIK");
   outMsg("UNIVERSITAS UDAYANA");
   outMsg("2023");
   outLine();
-  outLine();
-  outMsg("");
-  outMsg("");
   outMsg("");
   pauseMsg();
 }
@@ -225,7 +267,7 @@ void head() // tampilan head pada program
 {
   system("cls");
   outLine();
-  outMsg("%s", namaProgram);
+  outMsg("PROGRAM BANGUN RUANG");
   outLine();
 }
 
@@ -349,184 +391,175 @@ void menuUtama()
 // prosedur perhitungan
 void menuTabung()
 {
-  double diameter, tinggi;
+  double radius, tinggi;
   head();
   outLine();
   outMsg("Bangun Ruang Tabung");
   outLine();
-  outMsg("Masukkan diameter alas");
+  outMsg("Masukkan radius ");
   outLine();
-  inputThisDouble("diameter = ", &diameter);
+  inputThisDouble("radius = ", &radius);
   head();
-  outMsg("diameter alas = %lf", diameter);
+  outMsg("radius  = %lf", radius);
   outLine();
   outMsg("Masukkan tinggi tabung");
   outLine();
   inputThisDouble("tinggi = ", &tinggi);
   head();
-  outMsg("diameter alas = %lf", diameter);
+  outMsg("diameter alas = %lf", radius);
   outMsg("tinggi tabung = %lf", tinggi);
   outLine();
   outMsg("hasil perhitungan");
-  outMsg("volume = %lf", tabungVolume(diameter / 2, tinggi));
-  outMsg("luas permukaan = %lf", tabungLuasPermukaan(diameter / 2, tinggi));
+  outMsg("volume = %lf", tabungVolume(radius, tinggi));
+  outMsg("luas permukaan = %lf", tabungLuasPermukaan(radius, tinggi));
   outLine();
   endMsg();
 }
 
 void menuBola()
 {
-  double diameter, tinggi;
+  double radius;
   head();
   outLine();
   outMsg("Bangun Ruang Bola");
   outLine();
-  outMsg("Masukkan diameter bola");
+  outMsg("Masukkan radius bola");
   outLine();
-  inputThisDouble("diameter = ", &diameter);
-  head();
-  outMsg("diameter bola = %lf", diameter);
+  inputThisDouble("radius = ", &radius);
   outLine();
   outMsg("hasil perhitungan");
-  outMsg("volume = %lf", bolaVolume(diameter / 2));
-  outMsg("luas permukaan = %lf", bolaLuasPermukaan(diameter / 2));
+  outMsg("volume = %lf", bolaVolume(radius));
+  outMsg("luas permukaan = %lf", bolaLuasPermukaan(radius));
   outLine();
   endMsg();
 }
 
 void menuLimasSegiempat()
 {
-  double diameter, tinggi;
+  double luasAlas, tinggi, luasSegitiga1, luasSegitiga2, luasSegitiga3, luasSegitiga4;
   head();
   outLine();
   outMsg("Bangun Ruang Limas Segiempat");
   outLine();
-  outMsg("Masukkan diameter alas");
+  outMsg("Masukkan luas alas");
   outLine();
-  inputThisDouble("diameter = ", &diameter);
-  head();
-  outMsg("diameter alas = %lf", diameter);
+  inputThisDouble("Luas alas = ", &luasAlas);
+  outMsg("Masukkan Luas Alas Segitiga 1");
+  inputThisDouble("Luas Segitiga 1 = ", &luasSegitiga1);
   outLine();
-  outMsg("Masukkan tinggi tabung");
+    outMsg("Masukkan Luas Alas Segitiga 2");
+  inputThisDouble("Luas Segitiga 2 = ", &luasSegitiga2);
+  outLine();
+    outMsg("Masukkan Luas Alas Segitiga 3");
+  inputThisDouble("Luas Segitiga 3 = ", &luasSegitiga3);
+  outLine();
+    outMsg("Masukkan Luas Alas Segitiga 4");
+  inputThisDouble("Luas Segitiga 4 = ", &luasSegitiga4);
+  outLine();
+  outMsg("Masukkan tinggi limas segiempat");
   outLine();
   inputThisDouble("tinggi = ", &tinggi);
   head();
-  outMsg("diameter alas = %lf", diameter);
-  outMsg("tinggi tabung = %lf", tinggi);
   outLine();
   outMsg("hasil perhitungan");
-  outMsg("volume = %lf", tabungVolume(diameter / 2, tinggi));
-  outMsg("luas permukaan = %lf", tabungLuasPermukaan(diameter / 2, tinggi));
-  outLine();
+  outMsg("volume = %lf", limasSegiempatVolume(luasAlas, tinggi));
+outMsg("luas permukaan = %lf", limasSegiempatLuasPermukaan(luasAlas, luasSegitiga1, luasSegitiga2, luasSegitiga3, luasSegitiga4));  
+ outLine();
   endMsg();
 }
 
 void menuPrismaSegitiga()
 {
-  double diameter, tinggi;
+  double luasAlas,tinggi, luasSegitiga1, luasSegitiga2, luasSegitiga3, luasSegitiga4;
   head();
   outLine();
   outMsg("Bangun Ruang Prisma Segitiga");
   outLine();
-  outMsg("Masukkan diameter alas");
+  outMsg("Masukkan luas alas");
   outLine();
-  inputThisDouble("diameter = ", &diameter);
-  head();
-  outMsg("diameter alas = %lf", diameter);
+  inputThisDouble("luas alas = ", &luasAlas);
+  outMsg("luas segitiga 1 = ");
+  inputThisDouble("Luas segitiga 1 = ", &luasSegitiga1);
+  outLine();
+    outMsg("luas segitiga 2 = ");
+  inputThisDouble("Luas segitiga 2 = ", &luasSegitiga2);
+  outLine();
+    outMsg("luas segitiga 3 = ");
+  inputThisDouble("Luas segitiga 3 = ", &luasSegitiga3);
+  outLine();
+    outMsg("luas segitiga 4 = ");
+  inputThisDouble("Luas segitiga 4 = ", &luasSegitiga4);
   outLine();
   outMsg("Masukkan tinggi tabung");
   outLine();
   inputThisDouble("tinggi = ", &tinggi);
-  head();
-  outMsg("diameter alas = %lf", diameter);
-  outMsg("tinggi tabung = %lf", tinggi);
   outLine();
   outMsg("hasil perhitungan");
-  outMsg("volume = %lf", tabungVolume(diameter / 2, tinggi));
-  outMsg("luas permukaan = %lf", tabungLuasPermukaan(diameter / 2, tinggi));
-  outLine();
+outMsg("volume = %lf", prismaSegitigaVolume(luasAlas, tinggi));
+outMsg("luas permukaan = %lf", prismaSegitigaLuasPermukaan(luasAlas, luasSegitiga1, luasSegitiga2, luasSegitiga3, luasSegitiga4));  outLine();
   endMsg();
 }
 
 void menuKerucut()
 {
-  double diameter, tinggi;
+  double radius, tinggi;
   head();
   outLine();
   outMsg("Bangun Ruang Kerucut");
   outLine();
-  outMsg("Masukkan diameter alas");
-  outLine();
-  inputThisDouble("diameter = ", &diameter);
-  head();
-  outMsg("diameter alas = %lf", diameter);
-  outLine();
-  outMsg("Masukkan tinggi tabung");
-  outLine();
-  inputThisDouble("tinggi = ", &tinggi);
-  head();
-  outMsg("diameter alas = %lf", diameter);
-  outMsg("tinggi tabung = %lf", tinggi);
+  outMsg("Masukkan radius");
+  inputThisDouble("radius = ", &radius);
+  outMsg("Masukkan Tinggi kerucut ");
+  inputThisDouble("Tinggi = ", &tinggi);
   outLine();
   outMsg("hasil perhitungan");
-  outMsg("volume = %lf", tabungVolume(diameter / 2, tinggi));
-  outMsg("luas permukaan = %lf", tabungLuasPermukaan(diameter / 2, tinggi));
-  outLine();
-  endMsg();
+double volume = kerucutVolume(radius, tinggi);
+double luasPermukaan = kerucutLuasPermukaan(radius, tinggi);
+ outMsg("volume = %lf", volume = kerucutVolume(radius, tinggi));
+  outMsg("luas permukaan = %lf", luasPermukaan = kerucutLuasPermukaan(radius, tinggi));
+endMsg();
 }
 
 // fungsi rumus
 
-double tabungVolume(double radius, double tinggi)
-{
-  return 22 / 7 * pow(radius, 2) * tinggi;
+double tabungVolume(double radius, double tinggi) {
+    return M_PI * pow(radius, 2) * tinggi;
 }
 
-double tabungLuasPermukaan(double radius, double tinggi)
-{
-  return 2 * 22 / 7 * radius * tinggi + 2 * 22 / 7 * pow(radius, 3);
+double tabungLuasPermukaan(double radius, double tinggi) {
+    return 2 * M_PI * radius * (radius + tinggi);
 }
 
-double bolaVolume(double radius)
-{
-  return 4 / 3 * 22 / 7 * pow(radius, 3);
+double bolaVolume(double radius) {
+    return (4.0 / 3) * M_PI * pow(radius, 3);
 }
 
-double bolaLuasPermukaan(double radius)
-{
-  return 4 * 22 / 7 * pow(radius, 2);
+double bolaLuasPermukaan(double radius) {
+    return 4 * M_PI * pow(radius, 2);
 }
 
 double limasSegiempatVolume(double luasAlas, double tinggi)
 {
-  return 1 / 2 * luasAlas * tinggi;
+   return (1.0 / 3) * luasAlas * tinggi;
 }
 
-double limasSegiempatLuasPermukaan(double luasAlas, double luasSegitiga1, double luasSegitiga2, double luasSegitiga3, double luasSegitiga4)
-{
-  return luasAlas + luasSegitiga1 + luasSegitiga2 + luasSegitiga3 + luasSegitiga4;
+double limasSegiempatLuasPermukaan(double luasAlas, double luasSegitiga1, double luasSegitiga2, double luasSegitiga3, double luasSegitiga4) {
+    return luasAlas + luasSegitiga1 + luasSegitiga2 + luasSegitiga3 + luasSegitiga4;
 }
 
-double prismaSegitigaVolume(double luasAlas, double tinggi)
-{
-  return 1 / 2 * luasAlas * tinggi;
+double prismaSegitigaVolume(double luasAlas, double tinggi) {
+    return (1.0 / 2) * luasAlas * tinggi;
 }
 
-double prismaSegitigaLuasPermukaan(double luasAlas, double luasSegitiga1, double luasSegitiga2, double luasSegitiga3, double luasSegitiga4)
-{
-  return luasAlas + luasSegitiga1 + luasSegitiga2 + luasSegitiga3 + luasSegitiga4;
+double prismaSegitigaLuasPermukaan(double luasAlas, double luasSegitiga1, double luasSegitiga2, double luasSegitiga3, double luasSegitiga4) {
+    return luasAlas + luasSegitiga1 + luasSegitiga2 + luasSegitiga3 + luasSegitiga4;
 }
 
-double kerucutVolume(double luasAlas, double tinggi)
-{
-  return 1 / 2 * luasAlas * tinggi;
+double kerucutVolume(double radius, double tinggi) {
+    return (1.0 / 3) * M_PI * pow(radius, 2) * tinggi;
 }
 
-double kerucutLuasPermukaan(double luasAlas, double luasSegitiga1, double luasSegitiga2, double luasSegitiga3, double luasSegitiga4)
-{
-  return luasAlas + luasSegitiga1 + luasSegitiga2 + luasSegitiga3 + luasSegitiga4;
-<<<<<<< HEAD
-=======
->>>>>>> 55418aacdeff305ac40576604f019fa37ce696d6
->>>>>>> af4290d1489c807ce0f06f5cacb29ffbed00db62
+double kerucutLuasPermukaan(double radius, double tinggi) {
+    double s = sqrt(pow(radius, 2) + pow(tinggi, 2));
+    return M_PI * radius * (radius + s);
 }
