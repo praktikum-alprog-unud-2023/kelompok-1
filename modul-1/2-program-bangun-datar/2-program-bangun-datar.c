@@ -252,7 +252,7 @@ double input_positive_double()
 void starting_screen()
 {
   doubleline();
-  outMsg("PROGRAM MENGHITUNG VOLUME DAN LUAS PERMUKAAN BANGUN DATAR");
+  outMsg("PROGRAM MENGHITUNG KELILING DAN LUAS BANGUN DATAR");
   outMsg("*KELOMPOK 1*");
   doubleline();
   outMsg("NI NENGAH SENJA SRI PRATIWI             2305551014");
@@ -623,6 +623,7 @@ double luas_lingkaran(double r)
 
 int main()
 {
+  system("color F0");
   double sisi_a,
       sisi_b, sisi_c, d1, d2, alas, sisi, tinggi, sisi_atas, sisi_bawah, sisi_samping_kanan, sisi_samping_kiri, r;
   int opsi_bd;

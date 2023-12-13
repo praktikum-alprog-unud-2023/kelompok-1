@@ -9,7 +9,6 @@
         char nama[BUFFER_SIZE];
     };
 
-    /*Deklarasi Fungsi*/
     void inputThisLLInt();
     void tambahData();
     void tampilkanData();
@@ -30,7 +29,6 @@
             }
         }
 
-        // If all characters are numerical digits, copy the input to the nim array
         strcpy(nim, input);
         return 1;
     }
@@ -239,7 +237,7 @@
         while (fscanf(file, "%s", mahasiswa.nim) == 1)
         {
             fgets(mahasiswa.nama, BUFFER_SIZE, file);
-            mahasiswa.nama[strcspn(mahasiswa.nama, "\n")] = '\0';  // Remove the newline character
+            mahasiswa.nama[strcspn(mahasiswa.nama, "\n")] = '\0';
 
             if (strcmp(mahasiswa.nim, nimUpdate) == 0)
             {
@@ -275,6 +273,7 @@ int cekDuplikasiNIM(char nim[])
         statusMsg("ERROR: Gagal membuka file.");
         return 0;
     }
+
     struct Mahasiswa mahasiswa;
     while (fscanf(file, "%s %s", mahasiswa.nim, mahasiswa.nama) == 2)
     {
