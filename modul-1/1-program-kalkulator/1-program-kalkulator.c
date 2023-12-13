@@ -345,7 +345,7 @@ void ulangprogram() // prosedur menampilkan status
     }
     else if (pilihan == 2)
     {
-      printf("TERIMA KASIH SUDAH MENGGUNAKAN PROGRAM INI !\n");
+      printf("TERIMA KASIH SUDAH MENGGUNAKAN PROGRAM INI !");
       exit(0);
     }
     else
@@ -359,7 +359,7 @@ void menuUtama()
 {
   head();
   // menu
-  outMsg("Menu Pilihan Oprasi Aritmaika:");
+  outMsg("Menu Pilihan Oprasi Aritmetika:");
   outMsg(" 1  = Penjumlahan               \0");
   outMsg(" 2  = Pengurangan               \0");
   outMsg(" 3  = Perkalian                 \0");

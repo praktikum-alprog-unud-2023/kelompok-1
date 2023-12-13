@@ -30,6 +30,7 @@ int validateInputDouble(char *string, double *floating_point);
 int validateInputAlpha(char *string, char *alpha_string);
 void input_binary_str(char *input_param);
 
+
 /*=================================================================================
   Tampilan Ketika Program Pertama Kali Dibuka
   Prosedur Pelengkap:
@@ -44,7 +45,7 @@ void startingScreen()
   outLine();
   outLine();
   outMsg("");
-  outMsg("%s", namaProgram);
+  outMsg("Program Nilai Akhir");
   outMsg("");
   outLine();
   outLine();
@@ -236,8 +237,7 @@ void endMsg() // prosedur menampilkan status
   {
     if (pilihan == 1)
     {
-      // arahkan program kembali ke menu utama
-      menuUtama();
+      main();
     }
     else if (pilihan == 2)
     {
