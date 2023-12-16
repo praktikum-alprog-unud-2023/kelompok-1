@@ -34,6 +34,12 @@ void namaKelompok()
   outMsg("5. MUHAMMAD DZIKRI DHANIAWAN               2305551146");
   outMsg("6. VINCENTIUS BONAVERREL DOMINICO          2305554176");
   outLine();
+  outLine();
+  outMsg("PROGAM STUDI TEKNOLOGI INFORMASI");
+  outMsg("FAKULTAS TEKNIK");
+  outMsg("UNIVERSITAS UDAYANA");
+  outMsg("2023");
+  outLine();
   pauseMsg();
 }
 
@@ -89,8 +95,11 @@ int main()
   system("cls");
   if (pilihan == 1)
   {
+
+    system("cls");
     outLine();
-    outMsg("KONVERSI DESIMAL KE BINER");
+    outMsg("Konversi Bilangan");
+    outMsg("Desimal ke Biner");
     outLine();
     inputThisInt("Masukkan bilangan desimal : ", &desimal);
     printf("| Konversi ke biner\t\t: ");
@@ -107,8 +116,10 @@ int main()
   }
   else if (pilihan == 2)
   {
+    system("cls");
     outLine();
-    outMsg("KONVERSI BINER KE DESIMAL");
+    outMsg("Konversi Bilangan");
+    outMsg("Biner ke Desimal");
     outLine();
     printf("| >>>>>>>>>>>>>> Masukan bilangan biner : ");
     input_binary_str(biner);
@@ -190,8 +201,8 @@ void head() // tampilan head pada program
 {
   system("cls");
   outLine();
-  outMsg("Program Nilai Akhir");
   outMsg("Konversi Bilangan");
+  outMsg("Desimal Biner-Biner Desimal");
   outLine();
 }
 

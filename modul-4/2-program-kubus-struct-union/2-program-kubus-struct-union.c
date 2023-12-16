@@ -49,6 +49,7 @@ int main()
     head();
     system("cls");
     outLine();
+    outMsg("Kubus Struct Union");
     outLine();
     outMsg("");
     int sisi;
@@ -78,6 +79,9 @@ void hitungKubusUnion(union KubusUnion *kubus)
 
 void tampilkanHasil(struct KubusStruct *kubusStruct, union KubusUnion *kubusUnion)
 {
+    system("cls");
+    outLine();
+    outMsg("Kubus Struct Union");
     outLine();
     leftAlignOutMsg("Kubus dengan Struct");
     leftAlignOutMsg("Sisi           : %d", kubusStruct->sisi);
@@ -157,8 +161,7 @@ void head() // tampilan head pada program
 {
     outMsg("");
     outLine();
-    outLine();
-    outMsg("PROGRAM LUAS DAN VOLUME KUBUS");
+    outMsg("Kubus Struct Union");
     outMsg("KELOMPOK 1");
     outLine();
     outMsg("ANGGOTA:");

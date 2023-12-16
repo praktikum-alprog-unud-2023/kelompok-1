@@ -47,6 +47,12 @@ int main()
   outMsg("5. MUHAMMAD DZIKRI DHANIAWAN               2305551146");
   outMsg("6. VINCENTIUS BONAVERREL DOMINICO          2305554176");
   outLine();
+  outLine();
+  outMsg("PROGAM STUDI TEKNOLOGI INFORMASI");
+  outMsg("FAKULTAS TEKNIK");
+  outMsg("UNIVERSITAS UDAYANA");
+  outMsg("2023");
+  outLine();
   pauseMsg();
   menu();
   return 0;
@@ -60,6 +66,8 @@ void menu()
   float hasil;
 
   system("cls");
+  outLine();
+  outMsg("Program Statistika");
   outLine();
   outMsg("Pilih Operasi :  ");
   outMsg("1. Median        ");
@@ -309,8 +317,7 @@ void head() // tampilan head pada program
 {
   system("cls");
   outLine();
-  outMsg("Program Nilai Akhir");
-  outMsg("Konversi Bilangan");
+  outMsg("Program Statistika");
   outLine();
 }
 
