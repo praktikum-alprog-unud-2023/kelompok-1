@@ -1,6 +1,72 @@
 # kelompok-1
 
-# Panduan Penggunaan Git dan GitHub
+Asisten Praktikum:
+
+<table>
+  <thead>
+    <tr>
+      <td>Nama</td>
+      <td>NIM</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>I Putu Eka Putra Juniawan</td>
+      <td>2205551087</td>
+    </tr>
+  </tbody>
+</table>
+
+## Anggota Kelompok:
+
+<table>
+  <thead>
+    <tr>
+      <td>No</td>
+      <td>Nama</td>
+      <td>NIM</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Agus Arya Wiraguna</td>
+      <td>2305551013</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Ni Nengah Senja Sri Pratiwi</td>
+      <td>2305551014</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>I Gusti Ayu Martini</td>
+      <td>2305551020</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Putu Eka Dody Arsana Putra</td>
+      <td>2305551075</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Kalvin Angelito Ang</td>
+      <td>2305551115</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Muhammad Dzikri Dhaniawan</td>
+      <td>2305551146</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Vincentius Bonaverrel Dominico</td>
+      <td>2305554176</td>
+    </tr>
+  </tbody>
+</table>
+
+## Panduan Penggunaan Git dan GitHub
 
 Git adalah sistem kontrol versi yang sangat populer yang digunakan untuk mengelola kode sumber, sedangkan GitHub adalah platform hosting yang memungkinkan kolaborasi dan berbagi proyek dengan orang lain.
 
