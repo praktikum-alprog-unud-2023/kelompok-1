@@ -2,8 +2,8 @@
 
 int main()
 {
-  printf("Hello World!");
-  return 0;
+    printf("Hello World!");
+    return 0;
 }
 // Prosedur Enkripsi
 void encryptText(char text[], int shift)

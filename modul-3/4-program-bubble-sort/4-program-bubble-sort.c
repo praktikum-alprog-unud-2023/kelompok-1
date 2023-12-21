@@ -1,10 +1,5 @@
 #include "../../validasi/utility/utility.h"
-#include <time.h>
-
-void startingScreen();
-void head();
-void outLine();
-void endMsg();
+char namaProgram[] = "PROGRAM BUBBLE SORT";
 
 // Fungsi validasi
 int validasi()
@@ -41,6 +36,7 @@ int validasi()
     return ukuran;
   }
 }
+
 // Fungsi untuk menghasilkan angka acak antara 1 dan 10000
 int angkaAcak(int banyak_angka)
 {
@@ -169,6 +165,7 @@ int main()
     printf("Waktu dari penggunaan Bubble Sort lebih cepat.\n");
   }
 
+  pauseMsg();
   endMsg();
   return 0;
 }

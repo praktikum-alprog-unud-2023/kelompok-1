@@ -1,5 +1,5 @@
 #include "../../validasi/utility/utility.h"
-char namaProgram[] = "PROGRAM MENGHITUNG ANGSURAN";
+char namaProgram[] = "PROGRAM OPERASI MATRIKS";
 
 void inputMatriks();
 void inputInteger(char *message, int *integer);
