@@ -1,5 +1,7 @@
 # kelompok-1
 
+<img src="img/foto-bersama.png" alt="" srcset="" style="width: 100%" />
+
 Asisten Praktikum:
 
 <table>
