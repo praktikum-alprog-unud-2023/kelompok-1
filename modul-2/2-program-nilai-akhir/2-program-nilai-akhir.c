@@ -1,14 +1,6 @@
 #include "../../validasi/utility/utility.h"
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <string.h>
-#include <stdlib.h>
 
-void startingScreen();
-void head();
-void outLine();
-void endMsg();
+char namaProgram[] = "PROGRAM NILAI AKHIR";
 
 float input(float min, float max)
 {
@@ -40,23 +32,22 @@ int main()
 
   printf("Masukkan Nilai Tugas 1 : ");
   tugas1 = input(0, 100);
+  outLine();
+
   printf("Masukkan nilai Tugas 2 : ");
   tugas2 = input(0, 100);
+  outLine();
   printf("Masukkan nilai Tugas 3 : ");
   tugas3 = input(0, 100);
-  head();
   outLine();
   printf("Masukkan nilai Quiz: ");
   quiz = input(0, 100);
-  head();
   outLine();
   printf("Masukkan nilai UTS: ");
   uts = input(0, 100);
-  head();
   outLine();
   printf("Masukkan nilai UAS: ");
   uas = input(0, 100);
-  head();
   outLine();
 
   TugasRata = (tugas1 + tugas2 + tugas3) / 3;
@@ -99,6 +90,10 @@ int main()
   {
     printf("Input nilai tidak valid.");
   }
+
+  outLine();
+  outLine();
+  getchar();
   endMsg();
 
   return 0;

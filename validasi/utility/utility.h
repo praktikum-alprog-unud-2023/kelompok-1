@@ -4,6 +4,7 @@
 #include <stdarg.h>
 #include <ctype.h>
 #include <math.h>
+#include <time.h>
 
 // Konstanta untuk ukuran buffer
 #define BUFFER_SIZE 4096
@@ -20,6 +21,7 @@ void inputThisAlpha(char *inputText, char *inputVariable);
 void startingScreen();
 void head();
 void outLine();
+void singleLine();
 void outMsg(const char *format, ...);
 void statusMsg(char *);
 void pauseMsg();
@@ -29,7 +31,11 @@ int validateInputInteger(char *string, int *integer);
 int validateInputDouble(char *string, double *floating_point);
 int validateInputAlpha(char *string, char *alpha_string);
 void input_binary_str(char *input_param);
-
+int validasiBil(double *bil);
+int input_positive_int();
+int input_valid_option();
+int input_only_option(const char *str);
+double input_positive_double();
 
 /*=================================================================================
   Tampilan Ketika Program Pertama Kali Dibuka
@@ -41,13 +47,7 @@ void input_binary_str(char *input_param);
 */
 void startingScreen()
 {
-  system("cls");
-  outLine();
-  outLine();
-  outMsg("");
-  outMsg("Program Nilai Akhir");
-  outMsg("");
-  outLine();
+  head();
   outLine();
   outMsg("KELOMPOK 1");
   outLine();
@@ -88,6 +88,11 @@ void head() // tampilan head pada program
 void outLine() // prosedur menampilkan garis
 {
   printf("|=================================================================================|\n");
+}
+
+void singleLine()
+{
+  printf("\n--------------------------------------------------------------------\n");
 }
 
 /*=================================================================================
@@ -228,10 +233,13 @@ void statusMsg(char *inputText) // prosedur menampilkan status
 */
 void endMsg() // prosedur menampilkan status
 {
-  int pilihan;
+  system("cls");
   outLine();
   outMsg("PROGRAM SELESAI");
+  outLine();
+  outMsg("Apakah Anda Ingin Mengulang Program?");
   outMsg("< 1 > Ulangi            < 2 > Keluar");
+  outLine();
   inputThisInt("Masukkan perintah : ", &pilihan);
   do
   {
@@ -241,19 +249,20 @@ void endMsg() // prosedur menampilkan status
     }
     else if (pilihan == 2)
     {
-      // keluar dari program
+      printf("TERIMA KASIH SUDAH MENGGUNAKAN PROGRAM INI !");
       exit(0);
-      break;
     }
-
-    statusMsg("ERROR: PERINTAH YANG ANDA PILIH TIDAK DITEMUKAN");
-    endMsg();
+    else
+      statusMsg("ERROR: PERINTAH YANG ANDA PILIH TIDAK DITEMUKAN");
+    inputThisInt("Masukkan perintah Kembali: ", &pilihan);
+    fflush(stdin);
   } while (pilihan != 1 || pilihan != 2);
 }
 
 void pauseMsg()
 {
   outMsg("Press enter to continue . . .");
+  outLine();
   getchar();
   printf("\n");
 }
@@ -447,7 +456,6 @@ int validateInputAlpha(char *string, char *text)
 */
 void inputThisInt(char *inputText, int *inputVariable)
 {
-  int parsed_correct = 1;
   char buffer[BUFFER_SIZE];
   do
   {
@@ -485,7 +493,6 @@ void inputThisInt(char *inputText, int *inputVariable)
 */
 void inputThisDouble(char *inputText, double *inputVariable)
 {
-  int parsed_correct = 1;
   char buffer[BUFFER_SIZE];
   do
   {
@@ -586,4 +593,186 @@ void input_binary_str(char *input_param)
   }
   input[i] = '\0';
   strcpy(input_param, input);
+}
+
+int validasiBil(double *bil)
+{
+  char strBil[100];
+  while (1)
+  {
+    if (scanf("%[^\n]", strBil) != 1)
+    {
+      printf("Input harus berupa bilangan, silahkan ulangi kembali: ");
+      getchar() != '\n';
+    }
+    else
+    {
+      char *endptr;
+      *bil = strtod(strBil, &endptr);
+      if (*endptr == '\0')
+      {
+        getchar() != '\n';
+        return *bil;
+        break;
+      }
+    }
+  }
+}
+
+int input_positive_int()
+{
+  char input[10];
+  int i = 0, output, error = 0;
+
+  fflush(stdin);
+  fgets(input, sizeof(input), stdin);
+
+  if (input[0] == '\0')
+    error = 1;
+
+  while (input[i] != '\0' && input[i] != '\n')
+  {
+    if (isdigit(input[i]))
+      i++;
+    else
+    {
+      error = 1;
+      break;
+    }
+  }
+
+  output = atoi(input);
+
+  if (error == 1)
+  {
+    printf("\nInput Tidak Sesuai!");
+    printf("\nMasukan Angka Kembali : ");
+    return input_positive_int();
+  }
+  else
+    return output;
+}
+
+int input_valid_option()
+{
+  char input[10];
+  int i = 0, error = 0;
+  int output;
+
+  fflush(stdin);
+  fgets(input, sizeof(input), stdin);
+
+  if (input[0] == '\0')
+    error = 1;
+
+  while (input[i] != '\0' && input[i] != '\n')
+  {
+    if (isdigit(input[i]) && (input[i] == '1' || input[i] == '2'))
+    {
+      i++;
+    }
+    else
+    {
+      error = 1;
+      break;
+    }
+  }
+
+  if (error == 1)
+  {
+    printf("\nInput Tidak Sesuai! Harap masukkan angka 1 atau 2.");
+    printf("\nMasukkan Angka Kembali : ");
+    return input_valid_option();
+  }
+  else
+  {
+    output = atoi(input);
+    return output;
+  }
+}
+
+int input_only_option(const char *str)
+{
+  for (int i = 0; str[i] != '\0'; i++)
+  {
+    if (!isdigit(str[i]))
+    {
+      return 0;
+    }
+  }
+  return 1;
+}
+
+double input_positive_double()
+{
+  char input[11];
+  int i = 0, error = 0, negative = 0, decimal = 0, whole_num = 0, fract_num = 0, chars = 0;
+  float zero_point = 1, output;
+
+  fflush(stdin);
+  fgets(input, sizeof(input), stdin);
+
+  if (input[0] == '\0')
+    error = 1;
+
+  while (input[i] != '\0' && input[i] != '\n')
+  {
+    if (input[i] == '-')
+    {
+      error = 1;
+      break;
+    }
+    else if (input[i] == '.')
+    {
+      decimal++;
+      if (decimal > 1 || input[i + 1] == '\0' || input[0] == '.')
+      {
+        error = 1;
+        break;
+      }
+      i++;
+    }
+    else if (isdigit(input[i]))
+    {
+      if (decimal == 1)
+      {
+        fract_num = (fract_num * 10) + (input[i] - 48);
+        chars++;
+        i++;
+      }
+      else
+      {
+        whole_num = (whole_num * 10) + (input[i] - 48);
+        i++;
+      }
+    }
+    else
+    {
+      error = 1;
+      break;
+    }
+  }
+
+  if (decimal == 1)
+  {
+    for (int j = 0; j < chars; j++)
+    {
+      zero_point /= 10;
+    }
+    output = fract_num * zero_point + whole_num;
+  }
+  else
+    output = whole_num;
+
+  if (negative == 1)
+    output -= (output * 2);
+
+  if (error == 1)
+  {
+    printf("\nInput Tidak Sesuai ");
+    printf("\nSilahkan Masukan Angka Kembali : ");
+    return input_positive_double();
+  }
+  else
+    return output;
 }
