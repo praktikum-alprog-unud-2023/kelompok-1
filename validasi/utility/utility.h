@@ -6,6 +6,8 @@
 #include <math.h>
 #include <time.h>
 #include <sys/time.h>
+#include <limits.h>
+#include <stdbool.h>
 
 // Konstanta untuk ukuran buffer
 #define BUFFER_SIZE 4096
@@ -24,8 +26,10 @@ void head();
 void outLine();
 void singleLine();
 void outMsg(const char *format, ...);
+void leftAlignOutMsg(const char *format, ...);
 void statusMsg(char *);
 void pauseMsg();
+void clearInputBuffer();
 
 // Validasi input
 int validateInputInteger(char *string, int *integer);
@@ -132,6 +136,29 @@ void outMsg(const char *format, ...) // prosedur menampilkan pesan
 
   tempMessage[outputLength - 1] = '\0'; // Pastikan null-terminated string
   printf("|%s|\n", tempMessage);
+}
+
+void leftAlignOutMsg(const char *format, ...) // prosedur menampilkan pesan
+{
+  va_list args;
+  va_start(args, format);
+
+  char outputMessage[82];
+  int outputLength = 82;
+
+  vsnprintf(outputMessage, outputLength, format, args);
+
+  va_end(args);
+
+  const int inputLength = strlen(outputMessage);
+  if (inputLength >= outputLength - 1)
+  {
+    outputMessage[outputLength - 1] = '\0'; // Truncate if needed
+  }
+  else
+  {
+    printf("| %-*s|\n", outputLength - 2, outputMessage);
+  }
 }
 
 /*=================================================================================
@@ -806,4 +833,12 @@ void inputPilihan(const char *inputText, int *inputVariable)
       statusMsg("ERROR: BILANGAN YANG DIMASUKKAN BUKAN BILANGAN POSITIF");
     }
   } while (validateInputInteger(buffer, inputVariable) == 0 || *inputVariable < 0);
+}
+
+void clearInputBuffer()
+{
+  int c;
+  while ((c = getchar()) != '\n' && c != EOF)
+  {
+  }
 }
