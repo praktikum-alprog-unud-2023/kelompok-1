@@ -1,0 +1,1 @@
+ekaputra(8) : e=1 k=1 a=2 p=1 u=1 t=1 r=1 : Bukan Palindrom

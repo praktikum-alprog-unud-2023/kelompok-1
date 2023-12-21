@@ -1,17 +1,10 @@
+#include "../../validasi/utility/utility.h"
+
+char namaProgram[] = "PROGRAM BANGUN DATAR";
 #define _USE_MATH_DEFINES
-#include <stdio.h>
-#include <math.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <string.h>
-#include <stdarg.h>
 
 //  declaration for menu function
-void outline();
-void starting_screen();
-int endMsg();
 int option_screen();
-void clear_terminal();
 void menu_segitiga();
 void menu_belahketupat();
 void menu_jajargenjang();
@@ -30,299 +23,19 @@ double luas_trapesium(double sisi_atas, double sisi_bawah, double tinggi);
 double keliling_lingkaran(double r);
 double luas_lingkaran(double r);
 
-// utilitas
-void outline()
-{
-  printf("\n--------------------------------------------------------------------\n");
-}
-
-void doubleline()
-{
-  printf("\n====================================================================\n");
-}
-
-void outMsg(const char *format, ...)
-{
-  int totalWidth = 68;
-  char buffer[100];
-  va_list args;
-
-  va_start(args, format);
-  vsnprintf(buffer, sizeof(buffer), format, args);
-  va_end(args);
-
-  int textLength = strlen(buffer);
-  int padding = (totalWidth - textLength) / 2;
-
-  printf("\n");
-
-  for (int i = 0; i < padding; i++)
-  {
-    putchar(' ');
-  }
-
-  printf("%s", buffer);
-
-  for (int i = 0; i < padding; i++)
-  {
-    putchar(' ');
-  }
-
-  if (totalWidth % 2 != 0)
-  {
-    putchar(' ');
-  }
-
-  printf("\n");
-}
-
-void pauseMsg()
-{
-  outline();
-  outMsg("*Silahkan tekan enter untuk melanjutkan...*");
-  outline();
-}
-
-void clear_terminal()
-{
-  getchar();
-  system("cls");
-}
-
-// validasi
-int input_positive_int()
-{
-  char input[10];
-  int i = 0, output, error = 0;
-
-  fflush(stdin);
-  fgets(input, sizeof(input), stdin);
-
-  if (input[0] == '\0')
-    error = 1;
-
-  while (input[i] != '\0' && input[i] != '\n')
-  {
-    if (isdigit(input[i]))
-      i++;
-    else
-    {
-      error = 1;
-      break;
-    }
-  }
-
-  output = atoi(input);
-
-  if (error == 1)
-  {
-    printf("\nInput Tidak Sesuai!");
-    printf("\nMasukan Angka Kembali : ");
-    return input_positive_int();
-  }
-  else
-    return output;
-}
-
-int input_valid_option()
-{
-  char input[10];
-  int i = 0, error = 0;
-  int output;
-
-  fflush(stdin);
-  fgets(input, sizeof(input), stdin);
-
-  if (input[0] == '\0')
-    error = 1;
-
-  while (input[i] != '\0' && input[i] != '\n')
-  {
-    if (isdigit(input[i]) && (input[i] == '1' || input[i] == '2'))
-    {
-      i++;
-    }
-    else
-    {
-      error = 1;
-      break;
-    }
-  }
-
-  if (error == 1)
-  {
-    printf("\nInput Tidak Sesuai! Harap masukkan angka 1 atau 2.");
-    printf("\nMasukkan Angka Kembali : ");
-    return input_valid_option();
-  }
-  else
-  {
-    output = atoi(input);
-    return output;
-  }
-}
-
-int input_only_option(const char *str)
-{
-  for (int i = 0; str[i] != '\0'; i++)
-  {
-    if (!isdigit(str[i]))
-    {
-      return 0;
-    }
-  }
-  return 1;
-}
-
-double input_positive_double()
-{
-  char input[11];
-  int i = 0, error = 0, negative = 0, decimal = 0, whole_num = 0, fract_num = 0, chars = 0;
-  float zero_point = 1, output;
-
-  fflush(stdin);
-  fgets(input, sizeof(input), stdin);
-
-  if (input[0] == '\0')
-    error = 1;
-
-  while (input[i] != '\0' && input[i] != '\n')
-  {
-    if (input[i] == '-')
-    {
-      error = 1;
-      break;
-    }
-    else if (input[i] == '.')
-    {
-      decimal++;
-      if (decimal > 1 || input[i + 1] == '\0' || input[0] == '.')
-      {
-        error = 1;
-        break;
-      }
-      i++;
-    }
-    else if (isdigit(input[i]))
-    {
-      if (decimal == 1)
-      {
-        fract_num = (fract_num * 10) + (input[i] - 48);
-        chars++;
-        i++;
-      }
-      else
-      {
-        whole_num = (whole_num * 10) + (input[i] - 48);
-        i++;
-      }
-    }
-    else
-    {
-      error = 1;
-      break;
-    }
-  }
-
-  if (decimal == 1)
-  {
-    for (int j = 0; j < chars; j++)
-    {
-      zero_point /= 10;
-    }
-    output = fract_num * zero_point + whole_num;
-  }
-  else
-    output = whole_num;
-
-  if (negative == 1)
-    output -= (output * 2);
-
-  if (error == 1)
-  {
-    printf("\nInput Tidak Sesuai ");
-    printf("\nSilahkan Masukan Angka Kembali : ");
-    return input_positive_double();
-  }
-  else
-    return output;
-}
-
-// screen in terminal
-void starting_screen()
-{
-  doubleline();
-  outMsg("PROGRAM MENGHITUNG VOLUME DAN LUAS PERMUKAAN BANGUN DATAR");
-  outMsg("*KELOMPOK 1*");
-  doubleline();
-  outMsg("NI NENGAH SENJA SRI PRATIWI             2305551014");
-  outMsg("NI GUSTI AYU MARTINI                    2305551020");
-  outMsg("PUTU EKA DODY ARSANA PUTRA              2305551075");
-  outMsg("KALVIN ANGELITO ANG                     2305551115");
-  outMsg("MUHAMMAD DZIKRI DHANIAWAN               2305551146");
-  outMsg("VINCENTIUS BONAVERREL DOMINICO          2305554176");
-  doubleline();
-  outMsg("*Silahkan tekan enter untuk melanjutkan ke menu utama*");
-  doubleline();
-
-  clear_terminal();
-}
-
-int endMsg()
-{
-  int opsi_end;
-
-  outline();
-  outMsg("PROGRAM SUDAH SELESAI");
-  outline();
-  outMsg("<1> Ulangi Program <2> Keluar dari Program");
-  outline();
-
-  while (1)
-  {
-    printf(">>>>>>>>> Opsi = ");
-    scanf("%d", &opsi_end);
-
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF)
-      ;
-
-    if (opsi_end == 1 || opsi_end == 2)
-    {
-      break;
-    }
-    else
-    {
-      outMsg("Masukan input yang valid.");
-      printf("\n");
-    }
-  }
-
-  if (opsi_end == 2)
-  {
-    doubleline();
-    outMsg(">>>ANDA SUDAH KELUAR DARI PROGRAM<<<");
-    doubleline();
-
-    exit(0);
-  }
-
-  return opsi_end;
-}
-
 int option_screen()
 {
   int opsi_bd;
   char input[10];
 
-  outline();
+  singleLine();
   outMsg("Silahlan untuk memilih opsi perhitungan bangun datar dibawah ini :");
   outMsg("<1> Segitiga Sembarang");
   outMsg("<2> Belah Ketupat     ");
   outMsg("<3> Jajar Genjang     ");
   outMsg("<4> Trapesium         ");
   outMsg("<5> Lingkaran         ");
-  outline();
+  singleLine();
 
   while (1)
   {
@@ -358,11 +71,11 @@ void menu_segitiga()
   double sisi_a, sisi_b, sisi_c;
   double keliling, luas;
 
-  doubleline();
+  outline();
   outMsg("PROGRAM MENGHITUNG VOLUME DAN LUAS PERMUKAAN BANGUN DATAR");
-  outline();
+  singleLine();
   outMsg("BANGUN DATAR SEGITIGA SEMBARANG");
-  outline();
+  singleLine();
   outMsg("Masukan panjang dari masing masing sisi");
   printf("Sisi a =");
   sisi_a = input_positive_double();
@@ -372,15 +85,15 @@ void menu_segitiga()
   sisi_c = input_positive_double();
   pauseMsg();
   clear_terminal();
-  outline();
+  singleLine();
   outMsg("Diketahui : ");
-  outline();
+  singleLine();
   printf("sisi a = %.5lf\n", sisi_a);
   printf("sisi b = %.5lf\n", sisi_b);
   printf("sisi c = %.5lf\n", sisi_c);
-  outline();
+  singleLine();
   outMsg("Hasil Perhitungan :");
-  outline();
+  singleLine();
   printf("\nKeliling = %.5lf", keliling_segitiga(sisi_a, sisi_b, sisi_c));
   printf("\nLuas     = %.5lf\n", luas_segitiga(sisi_a, sisi_b, sisi_c));
   pauseMsg();
@@ -393,11 +106,11 @@ void menu_belahketupat()
   double d1, d2;
   double keliling, luas;
 
-  doubleline();
+  outline();
   outMsg("PROGRAM MENGHITUNG VOLUME DAN LUAS PERMUKAAN BANGUN DATAR");
-  outline();
+  singleLine();
   outMsg("BANGUN DATAR BELAH KETUPAT");
-  outline();
+  singleLine();
   outMsg("Masukan panjang dari masing masing diagonal");
   printf("Diagonal 1 =");
   d1 = input_positive_double();
@@ -405,14 +118,14 @@ void menu_belahketupat()
   d2 = input_positive_double();
   pauseMsg();
   clear_terminal();
-  outline();
+  singleLine();
   outMsg("Diketahui : ");
-  outline();
+  singleLine();
   printf("Diagonal 1 = %.5f\n", d1);
   printf("Diagonal 2 = %.5lf\n", d2);
-  outline();
+  singleLine();
   outMsg("Hasil Perhitungan : ");
-  outline();
+  singleLine();
   printf("\nKeliling = %.5lf", keliling_belahketupat(d1, d2));
   printf("\nLuas     = %.5lf\n", luas_belahketupat(d1, d2));
   pauseMsg();
@@ -425,11 +138,11 @@ void menu_jajargenjang()
   double alas, sisi, tinggi;
   double keliling, luas;
 
-  doubleline();
+  outline();
   outMsg("PROGRAM MENGHITUNG VOLUME DAN LUAS PERMUKAAN BANGUN DATAR");
-  outline();
+  singleLine();
   outMsg("BANGUN DATAR JAJAR GENJANG");
-  outline();
+  singleLine();
   outMsg("Masukan panjang dari alas, sisi, tinggi");
   printf("Alas   =");
   alas = input_positive_double();
@@ -439,15 +152,15 @@ void menu_jajargenjang()
   tinggi = input_positive_double();
   pauseMsg();
   clear_terminal();
-  outline();
+  singleLine();
   outMsg("Diketahui : ");
-  outline();
+  singleLine();
   printf("\nAlas   = %.5lf", alas);
   printf("\nSisi   = %.5lf", sisi);
   printf("\nTinggi = %.5lf", tinggi);
-  outline();
+  singleLine();
   outMsg("Hasil Perhitungan : ");
-  outline();
+  singleLine();
   printf("\nKeliling = %.5lf", keliling_jajargenjang(alas, sisi));
   printf("\nLuas = %.5lf\n", luas_jajargenjang(alas, tinggi));
   pauseMsg();
@@ -460,11 +173,11 @@ void menu_trapesium()
   double sisi_atas, sisi_bawah, sisi_kanan, sisi_kiri, tinggi;
   double keliling, luas;
 
-  doubleline();
+  outline();
   outMsg("PROGRAM MENGHITUNG VOLUME DAN LUAS PERMUKAAN BANGUN DATAR");
-  outline();
+  singleLine();
   outMsg("BANGUN DATAR TRAPESIUM");
-  outline();
+  singleLine();
   outMsg("Masukan panjang dari masing masing sisi");
   printf("Sisi atas =");
   sisi_atas = input_positive_double();
@@ -478,17 +191,17 @@ void menu_trapesium()
   tinggi = input_positive_double();
   pauseMsg();
   clear_terminal();
-  outline();
+  singleLine();
   outMsg("Diketahui : ");
-  outline();
+  singleLine();
   printf("sisi atas = %.5lf\n", sisi_atas);
   printf("sisi bawah = %.5lf\n", sisi_bawah);
   printf("sisi kanan = %.5lf\n", sisi_kanan);
   printf("sisi kiri = %.5lf\n", sisi_kiri);
   printf("sisi tinggi = %.5lf\n", tinggi);
-  outline();
+  singleLine();
   outMsg("Hasil Perhitungan :");
-  outline();
+  singleLine();
   printf("\nKeliling = %.5lf", keliling_trapesium(sisi_atas, sisi_bawah, sisi_kanan, sisi_kiri));
   printf("\nLuas     = %.5lf\n", luas_trapesium(sisi_atas, sisi_bawah, tinggi));
   pauseMsg();
@@ -501,23 +214,23 @@ void menu_lingkaran()
   double r;
   double keliling, luas;
 
-  doubleline();
+  outline();
   outMsg("PROGRAM MENGHITUNG VOLUME DAN LUAS PERMUKAAN BANGUN DATAR");
-  outline();
+  singleLine();
   outMsg("BANGUN DATAR LINGKARAN");
-  outline();
+  singleLine();
   outMsg("Masukan panjang dari jari-jari lingkaran");
   printf("Jari-jari =");
   r = input_positive_double();
   pauseMsg();
   clear_terminal();
-  outline();
+  singleLine();
   outMsg("Diketahui : ");
-  outline();
+  singleLine();
   printf("Jari-jari = %.5lf\n", r);
-  outline();
+  singleLine();
   outMsg("Hasil Perhitungan :");
-  outline();
+  singleLine();
   printf("\nKeliling = %.5lf", keliling_lingkaran(r));
   printf("\nLuas     = %.5lf\n", luas_lingkaran(r));
   pauseMsg();
