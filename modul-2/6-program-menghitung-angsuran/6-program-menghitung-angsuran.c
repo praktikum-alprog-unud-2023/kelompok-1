@@ -3,7 +3,7 @@ char namaProgram[] = "PROGRAM MENGHITUNG ANGSURAN";
 
 int main()
 {
-  system("color F0");
+  // system("color F0");
   startingScreen();
   menuUtama();
   return 0;
@@ -86,5 +86,6 @@ void menuUtama()
   printf("\n");
   outLine();
   printf("\n\n\n");
+  getchar();
   endMsg();
 }

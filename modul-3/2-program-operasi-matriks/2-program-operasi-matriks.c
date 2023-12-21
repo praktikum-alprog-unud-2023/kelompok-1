@@ -1,22 +1,9 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdarg.h>
-#include <ctype.h>
-#include <limits.h>
-#include <math.h>
+#include "../../validasi/utility/utility.h"
+char namaProgram[] = "PROGRAM MENGHITUNG ANGSURAN";
 
-#define BUFFER_SIZE 100
-int validasiInputInteger(char *string, int *integer);
-void ulangProgram();
-void startingScreen();
-void head();
-void outLine();
-void outMsg(const char *format, ...);
-void statusMsg(char *);
 void inputMatriks();
 void inputInteger(char *message, int *integer);
-void inputPilihan(char *message, int *integer);
+void inputPilihanNew(char *message, int *integer);
 int rows, cols;
 
 void clearInputBuffer()
@@ -32,7 +19,7 @@ int main()
   startingScreen();
   inputMatriks();
   system("pause");
-  ulangProgram();
+  endMsg();
 }
 
 void inputInteger(char *inputText, int *inputVariable)
@@ -51,7 +38,7 @@ void inputInteger(char *inputText, int *inputVariable)
 
     fgets(buffer, BUFFER_SIZE, stdin);
 
-    if (validasiInputInteger(buffer, inputVariable) == 0)
+    if (validateInputInteger(buffer, inputVariable) == 0)
     {
       statusMsg("ERROR: ANDA TIDAK MEMASUKKAN NOMOR PERINTAH");
     }
@@ -60,10 +47,10 @@ void inputInteger(char *inputText, int *inputVariable)
     {
       statusMsg("ERROR: INPUT TIDAK VALID");
     }
-  } while (validasiInputInteger(buffer, inputVariable) == 0 || *inputVariable <= 0);
+  } while (validateInputInteger(buffer, inputVariable) == 0 || *inputVariable <= 0);
 }
 
-void inputPilihan(char *inputText, int *inputVariable)
+void inputPilihanNew(char *inputText, int *inputVariable)
 {
   int parsed_correct = 1;
   char buffer[BUFFER_SIZE];
@@ -79,7 +66,7 @@ void inputPilihan(char *inputText, int *inputVariable)
 
     fgets(buffer, BUFFER_SIZE, stdin);
 
-    if (validasiInputInteger(buffer, inputVariable) == 0)
+    if (validateInputInteger(buffer, inputVariable) == 0)
     {
       statusMsg("ERROR: ANDA TIDAK MEMASUKKAN NOMOR PERINTAH");
     }
@@ -91,53 +78,7 @@ void inputPilihan(char *inputText, int *inputVariable)
     {
       statusMsg("ERROR: INPUT TIDAK VALID");
     }
-  } while (validasiInputInteger(buffer, inputVariable) == 0 || *inputVariable <= 0 || *inputVariable > 3);
-}
-
-int validasiInputInteger(char *string, int *integer)
-{
-  int i = 0;
-  while (isspace(string[i]))
-    i++;
-
-  int length = strlen(string);
-
-  if (length == i)
-    return 0;
-
-  char integer_buffer[BUFFER_SIZE];
-  int integer_chars = 0;
-
-  if (string[i] == '-' || string[i] == '+')
-  {
-    integer_buffer[integer_chars] = string[i];
-    integer_chars++;
-    i++;
-
-    if (!isdigit(string[i]) && string[i] != '\n')
-      return 0;
-  }
-
-  while (i < length && !isspace(string[i]) && string[i] != '\n')
-  {
-    if (!isdigit(string[i]))
-      return 0;
-
-    integer_buffer[integer_chars] = string[i];
-    integer_chars++;
-    i++;
-  }
-  integer_buffer[integer_chars] = '\0';
-
-  if (integer_chars == 0)
-    return 0;
-
-  if (string[i] != '\0' && string[i] != '\n')
-    return 0;
-
-  *integer = atoi(integer_buffer);
-
-  return 1;
+  } while (validateInputInteger(buffer, inputVariable) == 0 || *inputVariable <= 0 || *inputVariable > 3);
 }
 
 // Fungsi untuk menampilkan matriks
@@ -193,86 +134,6 @@ void transposeMatrix(int rows, int cols, int matrix[rows][cols], int result[cols
   }
 }
 
-// utilities
-void outLine() // prosedur menampilkan garis
-{
-  printf("|=================================================================================|\n");
-}
-void outMsg(const char *format, ...) // prosedur menampilkan pesan
-{
-  va_list args;
-  va_start(args, format);
-
-  char outputMessage[82];
-  int outputLength = 82;
-
-  vsnprintf(outputMessage, outputLength, format, args);
-
-  va_end(args);
-
-  int inputLength = strlen(outputMessage);
-  int numSpaces = (outputLength - inputLength) / 2;
-
-  if (numSpaces < 0)
-  {
-    numSpaces = 0; // Avoid negative padding
-  }
-
-  char tempMessage[82]; // Buat variabel sementara
-  memset(tempMessage, ' ', numSpaces);
-  strcpy(tempMessage + numSpaces, outputMessage);
-  memset(tempMessage + numSpaces + inputLength, ' ', numSpaces);
-
-  tempMessage[outputLength - 1] = '\0'; // Pastikan null-terminated string
-  printf("|%s|\n", tempMessage);
-}
-
-void statusMsg(char *inputText) // prosedur menampilkan status
-{
-  outLine();
-  outMsg(inputText);
-  outLine();
-}
-void head() // tampilan head pada program
-{
-  system("cls");
-  outLine();
-  outMsg("PROGRAM OPERASI MATEMATIKA MATRIKS");
-  outLine();
-}
-
-// tampilan program
-void startingScreen() // tampilan pada program
-{
-  system("cls");
-  outLine();
-  outMsg("");
-  outMsg("PROGRAM OPERASI MATEMATIKA MATRIKS");
-  outMsg("");
-  outLine();
-  outLine();
-  outMsg("KELOMPOK 1");
-  outLine();
-  outMsg("ANGGOTA:");
-  outMsg("AGUS ARYA WIRAGUNA                      2305551013");
-  outMsg("NI NENGAH SENJA SRI PRATIWI             2305551014");
-  outMsg("I GUSTI AYU MARTINI                     2305551020");
-  outMsg("PUTU EKA DODY ARSANA PUTRA              2305551075");
-  outMsg("KALVIN ANGELITO ANG                     2305551115");
-  outMsg("MUHAMMAD DZIKRI DHANIAWAN               2305551146");
-  outMsg("VINCENTIUS BONAVERREL DOMINICO          2305554176");
-  outLine();
-  outLine();
-  outMsg("PROGAM STUDI TEKNOLOGI INFORMASI");
-  outMsg("FAKULTAS TEKNIK");
-  outMsg("UNIVERSITAS UDAYANA");
-  outMsg("2023");
-  outLine();
-  outLine();
-  system("pause");
-  system("cls");
-}
-
 void menuMatriks()
 {
   outLine();
@@ -282,36 +143,6 @@ void menuMatriks()
   outMsg("2 = Penjumlahan ");
   outMsg("3 = Transpose");
   outLine();
-}
-
-void ulangProgram()
-{
-  int pilihan;
-  system("cls");
-  outLine();
-  outMsg("PROGRAM SELESAI");
-  outLine();
-  outMsg("Apakah Anda Ingin Mengulang Program?");
-  outMsg("< 1 > Ulangi            < 2 > Keluar");
-  outLine();
-  inputPilihan("Masukkan perintah : ", &pilihan);
-  do
-  {
-    if (pilihan == 1)
-    {
-      main();
-    }
-    else if (pilihan == 2)
-    {
-      statusMsg("TERIMA KASIH SUDAH MENGGUNAKAN PROGRAM INI !");
-      exit(0);
-    }
-    else
-    {
-      statusMsg("ERROR: PERINTAH YANG ANDA PILIH TIDAK DITEMUKAN");
-    }
-    inputPilihan("Masukkan perintah Kembali: ", &pilihan);
-  } while (pilihan != 1 && pilihan != 2);
 }
 
 void inputMatriks()
@@ -349,7 +180,7 @@ void inputMatriks()
         clearInputBuffer();
 
         // Melakukan validasi input sebelum mengonversi ke integer
-        if (validasiInputInteger(input, &matrix1[i][j]))
+        if (validateInputInteger(input, &matrix1[i][j]))
         {
           isValid = 1;
         }
@@ -375,7 +206,7 @@ void inputMatriks()
         clearInputBuffer();
 
         // Melakukan validasi input sebelum mengonversi ke integer
-        if (validasiInputInteger(input, &matrix2[i][j]))
+        if (validateInputInteger(input, &matrix2[i][j]))
         {
           isValid = 1;
         }
@@ -396,7 +227,7 @@ void inputMatriks()
   outMsg("2. Perkalian Matriks");
   outMsg("3. Transpose Matriks");
   statusMsg("MASUKAN PILIHAN (1-3)");
-  inputPilihan("masukan pilihan : ", &choice);
+  inputPilihanNew("masukan pilihan : ", &choice);
 
   switch (choice)
   {

@@ -5,6 +5,7 @@
 #include <ctype.h>
 #include <math.h>
 #include <time.h>
+#include <sys/time.h>
 
 // Konstanta untuk ukuran buffer
 #define BUFFER_SIZE 4096
@@ -31,11 +32,12 @@ int validateInputInteger(char *string, int *integer);
 int validateInputDouble(char *string, double *floating_point);
 int validateInputAlpha(char *string, char *alpha_string);
 void input_binary_str(char *input_param);
-int validasiBil(double *bil);
+int validasiBil(int *bil);
 int input_positive_int();
 int input_valid_option();
 int input_only_option(const char *str);
 double input_positive_double();
+void inputPilihan(const char *inputText, int *inputVariable);
 
 /*=================================================================================
   Tampilan Ketika Program Pertama Kali Dibuka
@@ -595,25 +597,32 @@ void input_binary_str(char *input_param)
   strcpy(input_param, input);
 }
 
-int validasiBil(double *bil)
+int validasiBil(int *bil)
 {
   char strBil[100];
   while (1)
   {
-    if (scanf("%[^\n]", strBil) != 1)
+    if (scanf("%99[^\n]", strBil) != 1)
     {
       printf("Input harus berupa bilangan, silahkan ulangi kembali: ");
-      getchar() != '\n';
+      while (getchar() != '\n')
+        ;
     }
     else
     {
       char *endptr;
-      *bil = strtod(strBil, &endptr);
-      if (*endptr == '\0')
+      *bil = atoi(strBil);
+      if (*bil >= 0)
       {
-        getchar() != '\n';
+        while (getchar() != '\n')
+          ;
         return *bil;
-        break;
+      }
+      else
+      {
+        printf("Bilangan harus positif, silahkan ulangi kembali: ");
+        while (getchar() != '\n')
+          ;
       }
     }
   }
@@ -775,4 +784,26 @@ double input_positive_double()
   }
   else
     return output;
+}
+
+void inputPilihan(const char *inputText, int *inputVariable)
+{
+  char buffer[BUFFER_SIZE];
+  do
+  {
+    if (inputText != NULL)
+    {
+      printf("%s", inputText);
+    }
+    fgets(buffer, BUFFER_SIZE, stdin);
+
+    if (validateInputInteger(buffer, inputVariable) == 0)
+    {
+      statusMsg("ERROR: ANDA TIDAK MEMASUKKAN NOMOR PERINTAH");
+    }
+    else if (*inputVariable < 0)
+    {
+      statusMsg("ERROR: BILANGAN YANG DIMASUKKAN BUKAN BILANGAN POSITIF");
+    }
+  } while (validateInputInteger(buffer, inputVariable) == 0 || *inputVariable < 0);
 }
